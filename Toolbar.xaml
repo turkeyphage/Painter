@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="Painter.Toolbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Painter"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="70"
+             
+             >
+
+    <ToolBarTray Orientation="Vertical" >
+
+
+
+
+        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <Button ToolTip="Open" Width="44" Height="44" Click="OpenFile_Click">
+                <Image Source="Icons/open.png" />
+            </Button>
+            <Button ToolTip="Save" Width="44" Height="44" Click="SaveFile_Click">
+                <Image Source="Icons/save.png" />
+            </Button>
+
+            <Separator/>
+        </ToolBar>
+
+        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            
+            <RadioButton x:Name="Mode_Draw"
+                         ToolTip="Draw" 
+                         Width="44" 
+                         Height="44" 
+                         Checked="rbMode_Checked">
+                <Image Source="Icons/draw.png" />
+            </RadioButton>
+            <RadioButton x:Name="Mode_Select"
+                         ToolTip="Select" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbMode_Checked">
+                <Image Source="Icons/select.png" />
+            </RadioButton>
+            <RadioButton x:Name="Mode_Earase" 
+                         ToolTip="Erase" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbMode_Checked">
+                <Image Source="Icons/erase.png" />
+              
+            </RadioButton>
+            <Separator/>
+            
+        </ToolBar>
+
+
+        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+
+            <RadioButton x:Name="Shape_Ellipse" 
+                         ToolTip="Ellipse" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbShape_Checked"
+                         >
+                <Image Source="Icons/circle.png" />
+            </RadioButton>
+            <RadioButton x:Name="Shape_Rectangle" 
+                         ToolTip="Rectangle" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbShape_Checked">
+                <Image Source="Icons/rectangle.png" />
+            </RadioButton>
+            <RadioButton x:Name="Shape_Triangle" 
+                         ToolTip="Triangle" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbShape_Checked">
+                <Image Source="Icons/triangle.png" />
+            </RadioButton>
+            <Separator/>
+
+        </ToolBar>
+
+        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <Button ToolTip="Undo" 
+                    Width="44" 
+                    Height="44"
+                    Click="bUndo_Click">        
+                <Image Source="Icons/undo.png" />
+            </Button>
+            <Button ToolTip="Redo" 
+                    Width="44" 
+                    Height="44"
+                    Click="bRedo_Click">
+                <Image Source="Icons/redo.png" />
+            </Button>
+            
+            
+        </ToolBar>
+
+        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <ListBox Name="lbColors" Background="AliceBlue" >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal" Width="60"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Height="20" Width="20" Stroke="Black" Fill="{Binding}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ToolBar>
+
+
+    </ToolBarTray>
+
+
+
+</UserControl>
