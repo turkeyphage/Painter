@@ -92,6 +92,24 @@ namespace Painter
 
             Console.WriteLine("{0}, {1}", obj.Name, obj.IsChecked);
 
+
+            switch (obj.Name) {
+                case "Mode_Draw":
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(0);
+                    break;
+                case "Mode_Erase":
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(1);
+                    break;
+                case "Mode_Select":
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(3);
+                    break;
+                default:
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(4);
+                    break;
+            }
+
+
+
         }
 
         private void rbShape_Checked(object sender, RoutedEventArgs e)

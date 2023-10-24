@@ -146,5 +146,21 @@ namespace Painter
 
 
         }
+
+        public void ChangeMode(int mode)
+        {
+            switch (mode)
+            {
+
+                case 0: inkc.EditingMode = InkCanvasEditingMode.Ink; break;
+                case 1: inkc.EditingMode = InkCanvasEditingMode.EraseByPoint; break;
+                case 2: inkc.EditingMode = InkCanvasEditingMode.EraseByStroke; break;
+                case 3: inkc.EditingMode = InkCanvasEditingMode.Select; break;
+                case 4: inkc.EditingMode = InkCanvasEditingMode.None; break;
+                default: break;
+            }
+
+        }
+
     }
 }

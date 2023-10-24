@@ -41,7 +41,7 @@
                          Checked="rbMode_Checked">
                 <Image Source="Icons/select.png" />
             </RadioButton>
-            <RadioButton x:Name="Mode_Earase" 
+            <RadioButton x:Name="Mode_Erase" 
                          ToolTip="Erase" 
                          Width="44" 
                          Height="44"
@@ -50,37 +50,34 @@
               
             </RadioButton>
             <Separator/>
-            
-        </ToolBar>
 
-
-        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
 
             <RadioButton x:Name="Shape_Ellipse" 
-                         ToolTip="Ellipse" 
-                         Width="44" 
-                         Height="44"
-                         Checked="rbShape_Checked"
-                         >
+             ToolTip="Ellipse" 
+             Width="44" 
+             Height="44"
+             Checked="rbShape_Checked"
+             >
                 <Image Source="Icons/circle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Rectangle" 
-                         ToolTip="Rectangle" 
-                         Width="44" 
-                         Height="44"
-                         Checked="rbShape_Checked">
+             ToolTip="Rectangle" 
+             Width="44" 
+             Height="44"
+             Checked="rbShape_Checked">
                 <Image Source="Icons/rectangle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Triangle" 
-                         ToolTip="Triangle" 
-                         Width="44" 
-                         Height="44"
-                         Checked="rbShape_Checked">
+             ToolTip="Triangle" 
+             Width="44" 
+             Height="44"
+             Checked="rbShape_Checked">
                 <Image Source="Icons/triangle.png" />
             </RadioButton>
             <Separator/>
-
         </ToolBar>
+
+
 
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <Button ToolTip="Undo" 
