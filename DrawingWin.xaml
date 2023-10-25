@@ -22,7 +22,9 @@
                            MouseDown="inkc_MouseDown" 
                            MouseMove="inkc_MouseMove"
                            MouseUp="inkc_MouseUp"
-                           SelectionChanged="inkc_SelectionChanged">
+                           SelectionChanged="inkc_SelectionChanged"
+                           SelectionResized="inkc_SelectionResized"
+                           >
                     <InkCanvas.DefaultDrawingAttributes>
                         <DrawingAttributes Height="10" Width="10" />
                     </InkCanvas.DefaultDrawingAttributes>

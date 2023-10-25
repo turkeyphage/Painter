@@ -48,6 +48,7 @@ namespace Painter
 
         private EditModeType _currentMode = EditModeType.Draw;
 
+
         public DrawingWin()
         {
             InitializeComponent();
@@ -205,16 +206,20 @@ namespace Painter
             iniP = e.GetPosition(inkc);
             isCreatingShape = true;
 
+            SolidColorBrush fillColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffaacc"));
+            SolidColorBrush strokeColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#aabbcc"));
+
             switch (_currentMode)
             {
                 case EditModeType.Shape_Ellipse:
-                    CreateEllipse();
+                    
+                    CreateEllipse(fillColor, strokeColor, 1);
                     break;
                 case EditModeType.Shape_Triangle:
-                    CreateTriangle();
+                    CreateTriangle(fillColor, strokeColor, 1);
                     break;
                 case EditModeType.Shape_Rect:
-                    CreateRectangle();
+                    CreateRectangle(fillColor, strokeColor, 1);
                     break;
                 default:
                     break;
@@ -258,16 +263,13 @@ namespace Painter
 
 
 
-
-
-
-        private void CreateEllipse()
+        private void CreateEllipse(Brush fillColor, Brush strokeColor, int strokeThickness)
         {
             Ellipse ellipse = new Ellipse
             {
-                Fill = Brushes.Blue,
-                Stroke = Brushes.Black,
-                StrokeThickness = 2,
+                Fill = fillColor,
+                Stroke = strokeColor,
+                StrokeThickness = strokeThickness,
                 Width = 0,
                 Height = 0
             };
@@ -285,13 +287,13 @@ namespace Painter
         }
 
 
-        private void CreateRectangle()
+        private void CreateRectangle(Brush fillColor, Brush strokeColor, int strokeThickness)
         {
             Rectangle rectangle = new Rectangle
             {
-                Fill = Brushes.Yellow,
-                Stroke = Brushes.Red,
-                StrokeThickness = 2,
+                Fill = fillColor,
+                Stroke = strokeColor,
+                StrokeThickness = strokeThickness,
                 Width = 0,
                 Height = 0
             };
@@ -310,14 +312,13 @@ namespace Painter
 
 
 
-        private void CreateTriangle()
+        private void CreateTriangle(Brush fillColor, Brush strokeColor, int strokeThickness)
         {
             Polygon triangle = new Polygon
             {
-                Fill = Brushes.Yellow,
-                Stroke = Brushes.Red,
-                StrokeThickness = 2,
-                
+                Fill = fillColor,
+                Stroke = strokeColor,
+                StrokeThickness = strokeThickness,            
                 Points = new PointCollection()
                 {
                     new Point(iniP.X, iniP.Y),
@@ -368,7 +369,8 @@ namespace Painter
             // Update the shape's size
             if (currentShape is Polygon triangle)
             {
-                triangle.Points = new PointCollection() { new Point(smX, bgY), new Point(bgX, bgY), new Point(smX + ((bgX - smX) / 2), smY) };
+                triangle.RenderTransform = new TranslateTransform(iniP.X, iniP.Y);
+                triangle.Points = new PointCollection() { new Point(0, bgY-smY), new Point(bgX-smX, bgY-smY), new Point(0 +((bgX - smX) / 2), 0) };
                
             }
         }
@@ -410,8 +412,7 @@ namespace Painter
                 // You can perform actions here when objects are selected
                 Console.WriteLine(inkc.GetSelectedStrokes());
                 Console.WriteLine(inkc.GetSelectedElements());
-
-
+                 
 
             }
             else
@@ -419,6 +420,13 @@ namespace Painter
                 // No objects are selected
                 // Perform actions when there are no selected objects
             }
+        }
+
+        private void inkc_SelectionResized(object sender, EventArgs e)
+        {
+            Console.WriteLine("Resize");
+
+
         }
     }
 }
