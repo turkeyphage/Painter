@@ -104,7 +104,7 @@
         
         
 
-        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+        <!--<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <Button ToolTip="Undo" 
                     Width="44" 
                     Height="44"
@@ -117,7 +117,7 @@
                     Click="bRedo_Click">
                 <Image Source="Icons/redo.png" />
             </Button>
-        </ToolBar>
+        </ToolBar>-->
 
         <!--<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <ListBox Name="lbColors" Background="AliceBlue" >

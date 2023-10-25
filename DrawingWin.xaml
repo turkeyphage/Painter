@@ -18,10 +18,15 @@
                        Margin="0,0,0,0" 
                        ScrollViewer.VerticalScrollBarVisibility="Auto"
                        ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                <InkCanvas x:Name="inkc" Margin="0,0,0,0" PreviewMouseLeftButtonDown="inkc_MouseDown" MouseMove="inkc_MouseMove">
+                <InkCanvas x:Name="inkc" Margin="0,0,0,0" 
+                           MouseDown="inkc_MouseDown" 
+                           MouseMove="inkc_MouseMove"
+                           MouseUp="inkc_MouseUp"
+                           SelectionChanged="inkc_SelectionChanged">
                     <InkCanvas.DefaultDrawingAttributes>
                         <DrawingAttributes Height="10" Width="10" />
                     </InkCanvas.DefaultDrawingAttributes>
+
                 </InkCanvas>
             </ScrollViewer>
         </Border>

@@ -14,6 +14,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace Painter
@@ -39,7 +40,11 @@ namespace Painter
         private bool handle = true;
 
 
-        private System.Windows.Point iniP;
+        private Point iniP;
+
+        private bool isCreatingShape = false;
+        private UIElement currentShape;
+        
 
         private EditModeType _currentMode = EditModeType.Draw;
 
@@ -54,6 +59,7 @@ namespace Painter
             UndoStrokes = new Stack<DoStroke>();
 
 
+            ChangeMode(EditModeType.Draw);
             inkc.Strokes.StrokesChanged += Strokes_StrokesChanged;
         }
 
@@ -73,10 +79,12 @@ namespace Painter
 
 
         public void CreateNew() {
+            ChangeMode(EditModeType.Draw);
             handle = false;
             DoStrokes.Clear();
             UndoStrokes.Clear();
             inkc.Strokes.Clear();
+            inkc.Children.Clear();
             handle = true;
         }
 
@@ -85,7 +93,11 @@ namespace Painter
             try
             {
                 FileStream fs = new FileStream(Filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+
+                
                 inkc.Strokes.Save(fs, false);
+                
+                
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -99,6 +111,10 @@ namespace Painter
             {
                 FileStream fs = new FileStream(Filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                 inkc.Strokes = new StrokeCollection(fs);
+                
+
+
+
             }
             catch (Exception e) {
                 Console.WriteLine(e);
@@ -185,136 +201,191 @@ namespace Painter
 
         private void inkc_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Pressed)
-            {
-                iniP = e.GetPosition(inkc);
-            }
 
+            iniP = e.GetPosition(inkc);
+            isCreatingShape = true;
+
+            switch (_currentMode)
+            {
+                case EditModeType.Shape_Ellipse:
+                    CreateEllipse();
+                    break;
+                case EditModeType.Shape_Triangle:
+                    CreateTriangle();
+                    break;
+                case EditModeType.Shape_Rect:
+                    CreateRectangle();
+                    break;
+                default:
+                    break;
+
+            }
         }
 
         private void inkc_MouseMove(object sender, MouseEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Pressed)
+
+            if (isCreatingShape && currentShape != null)
             {
+                // Calculate the size of the shape based on the mouse position
+                Point currentMousePosition = e.GetPosition(inkc);
+
                 switch (_currentMode)
                 {
-                    case EditModeType.Shape_Rect:
-                        inkc.EditingMode = InkCanvasEditingMode.None;
-                        DrawRectangle(e.GetPosition(inkc));
-                        break;
                     case EditModeType.Shape_Ellipse:
-                        inkc.EditingMode = InkCanvasEditingMode.None;
-                        DrawEllipse(e.GetPosition(inkc));
+                        DrawEllipse(currentMousePosition);
                         break;
                     case EditModeType.Shape_Triangle:
-                        inkc.EditingMode = InkCanvasEditingMode.None;
-                        DrawTriangle(e.GetPosition(inkc));
+                        DrawTriangle(currentMousePosition);
                         break;
-
+                    case EditModeType.Shape_Rect:
+                        DrawRectangle(currentMousePosition);
+                        break;
                     default:
                         break;
+
                 }
-
-
-                
-
-
-
-                
-
             }
+        }
 
 
+        private void inkc_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            isCreatingShape = false;
+            currentShape = null;
 
         }
 
 
-        private void DrawRectangle(Point endP)
+
+
+
+
+        private void CreateEllipse()
         {
-
-            
-            List<Point> pointList = new List<Point> {
-
-                    new Point(iniP.X, iniP.Y),
-                    new Point(iniP.X, endP.Y),
-                    new Point(endP.X, endP.Y),
-                    new Point(endP.X, iniP.Y),
-                    new Point(iniP.X, iniP.Y),
-
-                };
-
-            DrawingAttributes rectDrawAttribute = inkc.DefaultDrawingAttributes.Clone();
-
-            rectDrawAttribute.FitToCurve = false;
-            rectDrawAttribute.StylusTip = StylusTip.Rectangle;
-
-
-
-
-            StylusPointCollection stylusPoints = new StylusPointCollection(pointList);
-            Stroke stroke = new Stroke(stylusPoints)
+            Ellipse ellipse = new Ellipse
             {
-                DrawingAttributes = rectDrawAttribute
+                Fill = Brushes.Blue,
+                Stroke = Brushes.Black,
+                StrokeThickness = 2,
+                Width = 0,
+                Height = 0
+            };
+
+
+
+            // Set the position of the ellipse
+            InkCanvas.SetLeft(ellipse, iniP.X);
+            InkCanvas.SetTop(ellipse, iniP.Y);
+
+            // Add the ellipse to the InkCanvas
+            inkc.Children.Add(ellipse);
+
+            currentShape = ellipse;
+        }
+
+
+        private void CreateRectangle()
+        {
+            Rectangle rectangle = new Rectangle
+            {
+                Fill = Brushes.Yellow,
+                Stroke = Brushes.Red,
+                StrokeThickness = 2,
+                Width = 0,
+                Height = 0
+            };
+
+
+
+            // Set the position of the rectangle
+            InkCanvas.SetLeft(rectangle, iniP.X);
+            InkCanvas.SetTop(rectangle, iniP.Y);
+
+            // Add the ellipse to the InkCanvas
+            inkc.Children.Add(rectangle);
+
+            currentShape = rectangle;
+        }
+
+
+
+        private void CreateTriangle()
+        {
+            Polygon triangle = new Polygon
+            {
+                Fill = Brushes.Yellow,
+                Stroke = Brushes.Red,
+                StrokeThickness = 2,
+                
+                Points = new PointCollection()
+                {
+                    new Point(iniP.X, iniP.Y),
+                    new Point(iniP.X, iniP.Y),
+                    new Point(iniP.X, iniP.Y),
+                }
 
             };
-            inkc.Strokes.Clear();
-            inkc.Strokes.Add(stroke);
+
+
+
+
+            // Add the ellipse to the InkCanvas
+            inkc.Children.Add(triangle);
+
+            currentShape = triangle;
         }
 
 
         private void DrawEllipse(Point endP)
         {
-            List<Point> pointList = GenerateElipseGeometry(iniP, endP);
+            
+            double width = Math.Max(0, endP.X - iniP.X);
+            double height = Math.Max(0, endP.Y - iniP.Y);
 
-            DrawingAttributes ellipseDrawAttribute = inkc.DefaultDrawingAttributes.Clone();
-
-            ellipseDrawAttribute.FitToCurve = false;
-            ellipseDrawAttribute.StylusTip = StylusTip.Ellipse;
-
-
-            StylusPointCollection stylusPoints = new StylusPointCollection(pointList);
-            Stroke stroke = new Stroke(stylusPoints)
+            // Update the shape's size
+            if (currentShape is Ellipse ellipse)
             {
-                DrawingAttributes = ellipseDrawAttribute
+                ellipse.Width = width;
+                ellipse.Height = height;
+            }
 
-            };
-            inkc.Strokes.Clear();
-            inkc.Strokes.Add(stroke);
         }
 
 
         private void DrawTriangle(Point endP)
         {
-            DrawingAttributes rectDrawAttribute = inkc.DefaultDrawingAttributes.Clone();
+            
+            double smX = iniP.X < endP.X ? (double)iniP.X : (double)endP.X;
+            double bgX = iniP.X < endP.X ? (double)endP.X : (double)iniP.X;
 
-            rectDrawAttribute.FitToCurve = false;
-            rectDrawAttribute.StylusTip = StylusTip.Rectangle;
-            Point midTopP = new Point((iniP.X + endP.X) / 2 - rectDrawAttribute.Width / 2, iniP.Y);
+            double smY = iniP.Y < endP.Y ? (double)iniP.Y : (double)endP.Y;
+            double bgY = iniP.Y < endP.Y ? (double)endP.Y : (double)iniP.Y;
 
-            List<Point> pointList = new List<Point> {
+            double width = Math.Max(0, bgX - smX);
+            double height = Math.Max(0, bgY - smY);
 
-                    new Point(midTopP.X, midTopP.Y),
-                    new Point(endP.X, endP.Y),
-                    new Point(iniP.X, endP.Y),
-                    new Point(midTopP.X, midTopP.Y),
-
-                };
-
-
-
-
-            StylusPointCollection stylusPoints = new StylusPointCollection(pointList);
-            Stroke stroke = new Stroke(stylusPoints)
+            // Update the shape's size
+            if (currentShape is Polygon triangle)
             {
-                DrawingAttributes = rectDrawAttribute
-
-            };
-            inkc.Strokes.Clear();
-            inkc.Strokes.Add(stroke);
-
+                triangle.Points = new PointCollection() { new Point(smX, bgY), new Point(bgX, bgY), new Point(smX + ((bgX - smX) / 2), smY) };
+               
+            }
         }
 
+        private void DrawRectangle(Point endP)
+        {
 
+            double width = Math.Max(0, endP.X - iniP.X);
+            double height = Math.Max(0, endP.Y - iniP.Y);
+
+            // Update the shape's size
+            if (currentShape is Rectangle rectangle)
+            {
+                rectangle.Width = width;
+                rectangle.Height = height;
+            }
+        }
 
 
         private List<Point> GenerateElipseGeometry(Point st, Point ed) { 
@@ -331,6 +402,23 @@ namespace Painter
             return pointList;
         }
 
+        private void inkc_SelectionChanged(object sender, EventArgs e)
+        {
+            if (inkc.GetSelectedStrokes().Count > 0 || inkc.GetSelectedElements().Count > 0)
+            {
+                // Object(s) are selected
+                // You can perform actions here when objects are selected
+                Console.WriteLine(inkc.GetSelectedStrokes());
+                Console.WriteLine(inkc.GetSelectedElements());
 
+
+
+            }
+            else
+            {
+                // No objects are selected
+                // Perform actions when there are no selected objects
+            }
+        }
     }
 }
