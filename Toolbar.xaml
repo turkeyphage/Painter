@@ -15,6 +15,9 @@
 
 
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <Button ToolTip="Open" Width="44" Height="44" Click="NewFile_Click">
+                <Image Source="Icons/create.png" />
+            </Button>
             <Button ToolTip="Open" Width="44" Height="44" Click="OpenFile_Click">
                 <Image Source="Icons/open.png" />
             </Button>
@@ -96,7 +99,7 @@
             
         </ToolBar>
 
-        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+        <!--<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <ListBox Name="lbColors" Background="AliceBlue" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -109,7 +112,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </ToolBar>
+        </ToolBar>-->
 
 
     </ToolBarTray>

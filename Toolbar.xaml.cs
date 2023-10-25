@@ -37,10 +37,10 @@ namespace Painter
         void Start(bool loadSettings = true)
         {
 
-            List<string> cols = new List<string>() { "Black" , "LightSlateGray" , "DarkRed","Red","DarkOrange","Yellow",
-                "Green","DeepSkyBlue","RoyalBlue","MediumOrchid","White","LightGray","RosyBrown","Pink","Orange","Beige",
-                "YellowGreen","PaleTurquoise","SteelBlue","Lavender"};
-            lbColors.ItemsSource = cols;
+            //List<string> cols = new List<string>() { "Black" , "LightSlateGray" , "DarkRed","Red","DarkOrange","Yellow",
+            //    "Green","DeepSkyBlue","RoyalBlue","MediumOrchid","White","LightGray","RosyBrown","Pink","Orange","Beige",
+            //    "YellowGreen","PaleTurquoise","SteelBlue","Lavender"};
+            //lbColors.ItemsSource = cols;
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
@@ -73,6 +73,12 @@ namespace Painter
             sfd.Filter = "isf files (*.isf)|*.isf";
             sfd.ShowDialog();
             ((DrawingWin)System.Windows.Application.Current.MainWindow).Save(sfd.FileName);
+        }
+
+
+        private void NewFile_Click(object sender, RoutedEventArgs e)
+        {
+            ((DrawingWin)System.Windows.Application.Current.MainWindow).CreateNew();
         }
 
 

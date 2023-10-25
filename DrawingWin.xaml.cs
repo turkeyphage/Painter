@@ -70,6 +70,14 @@ namespace Painter
         }
 
 
+        public void CreateNew() {
+            handle = false;
+            DoStrokes.Clear();
+            UndoStrokes.Clear();
+            inkc.Strokes.Clear();
+            handle = true;
+        }
+
         public void Save(string Filename)
         {
             try
