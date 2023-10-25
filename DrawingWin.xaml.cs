@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Painter.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,10 +35,13 @@ namespace Painter
             public System.Windows.Ink.Stroke Stroke { get; set; }
         }
 
-        //System.Windows.Ink.StrokeCollection _added;
-        //System.Windows.Ink.StrokeCollection _removed;
+
         private bool handle = true;
 
+
+        private System.Windows.Point iniP;
+
+        private EditModeType _currentMode = EditModeType.Draw;
 
         public DrawingWin()
         {
@@ -64,8 +68,6 @@ namespace Painter
                     ActionFlag = e.Added.Count > 0 ? "ADD" : "REMOVE",
                     Stroke = e.Added.Count > 0 ? e.Added[0] : e.Removed[0]
                 });
-                //_added = e.Added;
-                //_removed = e.Removed;
             }
         }
 
@@ -155,20 +157,180 @@ namespace Painter
 
         }
 
-        public void ChangeMode(int mode)
+        public void ChangeMode(EditModeType mode)
         {
+            _currentMode = mode;
             switch (mode)
             {
 
-                case 0: inkc.EditingMode = InkCanvasEditingMode.Ink; break;
-                case 1: inkc.EditingMode = InkCanvasEditingMode.EraseByPoint; break;
-                case 2: inkc.EditingMode = InkCanvasEditingMode.EraseByStroke; break;
-                case 3: inkc.EditingMode = InkCanvasEditingMode.Select; break;
-                case 4: inkc.EditingMode = InkCanvasEditingMode.None; break;
-                default: break;
+                case EditModeType.Draw: 
+                    inkc.EditingMode = InkCanvasEditingMode.Ink; 
+                    break;
+                case EditModeType.Erase: 
+                    inkc.EditingMode = InkCanvasEditingMode.EraseByPoint; 
+                    break;
+                case EditModeType.Select: 
+                    inkc.EditingMode = InkCanvasEditingMode.Select; 
+                    break;
+                case EditModeType.Shape_Rect:
+                case EditModeType.Shape_Ellipse:
+                case EditModeType.Shape_Triangle:
+                    inkc.EditingMode = InkCanvasEditingMode.None; 
+                    break;
+                default: 
+                    break;
             }
 
         }
+
+        private void inkc_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                iniP = e.GetPosition(inkc);
+            }
+
+        }
+
+        private void inkc_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+                switch (_currentMode)
+                {
+                    case EditModeType.Shape_Rect:
+                        inkc.EditingMode = InkCanvasEditingMode.None;
+                        DrawRectangle(e.GetPosition(inkc));
+                        break;
+                    case EditModeType.Shape_Ellipse:
+                        inkc.EditingMode = InkCanvasEditingMode.None;
+                        DrawEllipse(e.GetPosition(inkc));
+                        break;
+                    case EditModeType.Shape_Triangle:
+                        inkc.EditingMode = InkCanvasEditingMode.None;
+                        DrawTriangle(e.GetPosition(inkc));
+                        break;
+
+                    default:
+                        break;
+                }
+
+
+                
+
+
+
+                
+
+            }
+
+
+
+        }
+
+
+        private void DrawRectangle(Point endP)
+        {
+
+            
+            List<Point> pointList = new List<Point> {
+
+                    new Point(iniP.X, iniP.Y),
+                    new Point(iniP.X, endP.Y),
+                    new Point(endP.X, endP.Y),
+                    new Point(endP.X, iniP.Y),
+                    new Point(iniP.X, iniP.Y),
+
+                };
+
+            DrawingAttributes rectDrawAttribute = inkc.DefaultDrawingAttributes.Clone();
+
+            rectDrawAttribute.FitToCurve = false;
+            rectDrawAttribute.StylusTip = StylusTip.Rectangle;
+
+
+
+
+            StylusPointCollection stylusPoints = new StylusPointCollection(pointList);
+            Stroke stroke = new Stroke(stylusPoints)
+            {
+                DrawingAttributes = rectDrawAttribute
+
+            };
+            inkc.Strokes.Clear();
+            inkc.Strokes.Add(stroke);
+        }
+
+
+        private void DrawEllipse(Point endP)
+        {
+            List<Point> pointList = GenerateElipseGeometry(iniP, endP);
+
+            DrawingAttributes ellipseDrawAttribute = inkc.DefaultDrawingAttributes.Clone();
+
+            ellipseDrawAttribute.FitToCurve = false;
+            ellipseDrawAttribute.StylusTip = StylusTip.Ellipse;
+
+
+            StylusPointCollection stylusPoints = new StylusPointCollection(pointList);
+            Stroke stroke = new Stroke(stylusPoints)
+            {
+                DrawingAttributes = ellipseDrawAttribute
+
+            };
+            inkc.Strokes.Clear();
+            inkc.Strokes.Add(stroke);
+        }
+
+
+        private void DrawTriangle(Point endP)
+        {
+            DrawingAttributes rectDrawAttribute = inkc.DefaultDrawingAttributes.Clone();
+
+            rectDrawAttribute.FitToCurve = false;
+            rectDrawAttribute.StylusTip = StylusTip.Rectangle;
+            Point midTopP = new Point((iniP.X + endP.X) / 2 - rectDrawAttribute.Width / 2, iniP.Y);
+
+            List<Point> pointList = new List<Point> {
+
+                    new Point(midTopP.X, midTopP.Y),
+                    new Point(endP.X, endP.Y),
+                    new Point(iniP.X, endP.Y),
+                    new Point(midTopP.X, midTopP.Y),
+
+                };
+
+
+
+
+            StylusPointCollection stylusPoints = new StylusPointCollection(pointList);
+            Stroke stroke = new Stroke(stylusPoints)
+            {
+                DrawingAttributes = rectDrawAttribute
+
+            };
+            inkc.Strokes.Clear();
+            inkc.Strokes.Add(stroke);
+
+        }
+
+
+
+
+        private List<Point> GenerateElipseGeometry(Point st, Point ed) { 
+            double a = 0.5 * (ed.X - st.X);
+            double b = 0.5 * (ed.Y - st.Y);
+
+            List<Point> pointList = new List<Point>();
+            for(double r = 0; r <= 2*Math.PI; r = r + 0.01)
+            {
+                pointList.Add(new System.Windows.Point(0.5 * (st.X + ed.X) + a * Math.Cos(r), 0.5 * (st.Y + ed.Y) + b * Math.Sin(r)));
+
+
+            }
+            return pointList;
+        }
+
 
     }
 }

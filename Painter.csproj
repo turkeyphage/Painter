@@ -59,6 +59,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\EditModeType.cs" />
     <Compile Include="Toolbar.xaml.cs">
       <DependentUpon>Toolbar.xaml</DependentUpon>
     </Compile>

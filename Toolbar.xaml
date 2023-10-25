@@ -28,7 +28,7 @@
             <Separator/>
         </ToolBar>
 
-        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" >
             
             <RadioButton x:Name="Mode_Draw"
                          ToolTip="Draw" 
@@ -56,31 +56,53 @@
 
 
             <RadioButton x:Name="Shape_Ellipse" 
-             ToolTip="Ellipse" 
-             Width="44" 
-             Height="44"
-             Checked="rbShape_Checked"
-             >
+                         ToolTip="Ellipse" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbShape_Checked">
                 <Image Source="Icons/circle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Rectangle" 
-             ToolTip="Rectangle" 
-             Width="44" 
-             Height="44"
-             Checked="rbShape_Checked">
+                         ToolTip="Rectangle" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbShape_Checked">
                 <Image Source="Icons/rectangle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Triangle" 
-             ToolTip="Triangle" 
-             Width="44" 
-             Height="44"
-             Checked="rbShape_Checked">
+                         ToolTip="Triangle" 
+                         Width="44" 
+                         Height="44"
+                         Checked="rbShape_Checked">
                 <Image Source="Icons/triangle.png" />
             </RadioButton>
             <Separator/>
         </ToolBar>
 
 
+        <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <Button ToolTip="Choose Color" 
+                    Width="44" 
+                    Height="44"
+                    >
+                <Image Source="Icons/paint_palette.png" />
+
+                
+            </Button>
+
+            <Button ToolTip="Stroke Size" 
+                    Width="44" 
+                    Height="44"
+                    >
+                <Image Source="Icons/line_width.png" />
+
+
+            </Button>
+            <Separator/>
+
+        </ToolBar>
+        
+        
 
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <Button ToolTip="Undo" 
@@ -95,8 +117,6 @@
                     Click="bRedo_Click">
                 <Image Source="Icons/redo.png" />
             </Button>
-            
-            
         </ToolBar>
 
         <!--<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">

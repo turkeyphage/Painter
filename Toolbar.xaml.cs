@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Painter.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,13 +60,6 @@ namespace Painter
             }
         }
 
-        private void paletteImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-
-
-
-        }
 
         private void SaveFile_Click(object sender, RoutedEventArgs e)
         {
@@ -101,20 +95,17 @@ namespace Painter
 
             switch (obj.Name) {
                 case "Mode_Draw":
-                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(0);
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(EditModeType.Draw);
                     break;
                 case "Mode_Erase":
-                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(1);
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(EditModeType.Erase);
                     break;
                 case "Mode_Select":
-                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(3);
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(EditModeType.Select);
                     break;
                 default:
-                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(4);
                     break;
             }
-
-
 
         }
 
@@ -123,6 +114,30 @@ namespace Painter
             RadioButton obj = sender as RadioButton;
 
             Console.WriteLine("{0}, {1}", obj.Name, obj.IsChecked);
+
+
+            switch (obj.Name)
+            {
+                case "Shape_Ellipse":
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(EditModeType.Shape_Ellipse);
+                    break;
+                case "Shape_Rectangle":
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(EditModeType.Shape_Rect);
+                    break;
+                case "Shape_Triangle":
+                    ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeMode(EditModeType.Shape_Triangle);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+
+        private void bPalette_Click(object sender, RoutedEventArgs e)
+        {
+            
+
         }
 
         private void bRedo_Click(object sender, RoutedEventArgs e)
@@ -136,5 +151,8 @@ namespace Painter
             ((DrawingWin)System.Windows.Application.Current.MainWindow).Undo();
 
         }
+
+
+
     }
 }
