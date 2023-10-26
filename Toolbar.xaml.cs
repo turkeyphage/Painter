@@ -64,7 +64,7 @@ namespace Painter
         private void SaveFile_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "json files (*.json)|*.json";
+            sfd.Filter = "Painter files (*.paint)|*.paint";
             sfd.ShowDialog();
             ((DrawingWin)System.Windows.Application.Current.MainWindow).Save(sfd.FileName);
         }
@@ -80,7 +80,7 @@ namespace Painter
         private void OpenFile_Click(object sender, RoutedEventArgs e) 
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "json files (*.json)|*.json";
+            ofd.Filter = "Painter files (*.paint)|*.paint";
             ofd.ShowDialog();
 
             ((DrawingWin)System.Windows.Application.Current.MainWindow).LoadFile(ofd.FileName); 

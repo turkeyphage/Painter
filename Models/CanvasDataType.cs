@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Ink;
+using System.Windows.Input;
 
 namespace Painter
 {
+
+
     public class ShapeObject
     {
         public string ShapeType { get; set; }
@@ -37,4 +40,6 @@ namespace Painter
 
 
     }
+
+
 }

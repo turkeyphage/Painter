@@ -213,8 +213,6 @@ namespace Painter
         public void LoadFile(string Filename) {
             try
             {
-                //FileStream fs = new FileStream(Filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                //inkc.Strokes = new StrokeCollection(fs);
                 
                 using (StreamReader file = File.OpenText(Filename))
                 using (JsonTextReader reader = new JsonTextReader(file))
@@ -223,8 +221,39 @@ namespace Painter
 
                     JObject o2 = (JObject)JToken.ReadFrom(reader);
 
-                    var savedShapes = o2["shapesData"].ToObject<ShapeObject[]>();
+                    var savedInks = o2["inkStrokeData"];
 
+                    foreach (JObject strokeObject in savedInks)
+                    {
+
+                        var attribute = strokeObject["DrawingAttributes"];
+
+                        var aColor = attribute["Color"].ToObject<Brush>();
+                        var aStylusTip = attribute["StylusTip"].ToObject<int>();
+                        var aWidth = attribute["Width"].ToObject<double>();
+                        var aHeight = attribute["Height"].ToObject<double>();
+                        var aFitToCurve = attribute["FitToCurve"].ToObject<Boolean>();
+                        var aIgnorePressure = attribute["IgnorePressure"].ToObject<Boolean>();
+                        var aIsHighlighter = attribute["IsHighlighter"].ToObject<Boolean>();
+                        var aStylusTipTransform = attribute["StylusTipTransform"].ToObject<String>();
+
+                        var sDrawAttribute = new DrawingAttributes();
+                        sDrawAttribute.Color = ((SolidColorBrush)aColor).Color;
+                        sDrawAttribute.IsHighlighter = aIsHighlighter;
+                        sDrawAttribute.IgnorePressure = aIgnorePressure;
+                        sDrawAttribute.FitToCurve = aFitToCurve;
+                        sDrawAttribute.StylusTip = aStylusTip == 0 ? StylusTip.Rectangle : StylusTip.Ellipse;
+                        sDrawAttribute.Height = aWidth;
+                        sDrawAttribute.Width = aHeight;
+
+                        var stylusPoints = strokeObject["StylusPoints"].ToObject<StylusPoint[]>();
+                        StylusPointCollection points = new StylusPointCollection(stylusPoints);
+                        Stroke newStroke = new Stroke(points, sDrawAttribute);
+                        inkc.Strokes.Add(newStroke);
+
+                    }
+
+                    var savedShapes = o2["shapesData"].ToObject<ShapeObject[]>();
 
                     foreach (var shape in savedShapes)
                     {
@@ -505,9 +534,6 @@ namespace Painter
                 }
 
             };
-
-
-
 
             // Add the ellipse to the InkCanvas
             inkc.Children.Add(triangle);

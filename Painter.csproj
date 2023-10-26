@@ -135,7 +135,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\EditModeType.cs" />
-    <Compile Include="Models\ShapeType.cs" />
+    <Compile Include="Models\CanvasDataType.cs" />
     <Compile Include="Toolbar.xaml.cs">
       <DependentUpon>Toolbar.xaml</DependentUpon>
     </Compile>
