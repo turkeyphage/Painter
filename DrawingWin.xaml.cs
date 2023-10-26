@@ -16,6 +16,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using System.Xaml;
+using Newtonsoft.Json.Linq;
+using System.Windows.Markup;
 
 namespace Painter
 {
@@ -91,30 +95,204 @@ namespace Painter
 
         public void Save(string Filename)
         {
+           
+            if(Filename == "")
+            {
+                Console.WriteLine("Empty Filename");
+                return;
+            }
+
             try
             {
-                FileStream fs = new FileStream(Filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                List<ShapeObject> childrenObjects = new List<ShapeObject>();
 
-                
-                inkc.Strokes.Save(fs, false);
-                
-                
+                foreach (UIElement child in inkc.Children)
+                {
+                    Console.WriteLine(child.ToString());
+                    if (child is Rectangle rect)
+                    {
+                        var parent = rect.Parent as UIElement;
+                        var location = rect.TranslatePoint(new Point(0, 0), parent);
+
+
+                        //Console.WriteLine(rect.Width);
+                        //Console.WriteLine(rect.Height);
+                        //Console.WriteLine(rect.Fill);
+                        //Console.WriteLine(rect.Stroke);
+                        //Console.WriteLine(rect.StrokeThickness);
+                        //Console.WriteLine(location);
+
+                        childrenObjects.Add(new ShapeObject()
+                        {
+                            ShapeType = "Rectangle",
+                            Fill = rect.Fill,
+                            Width = rect.Width,
+                            Height = rect.Height,
+                            Stroke = rect.Stroke,
+                            StrokeThickness = rect.StrokeThickness,
+                            StartPoint = location
+
+                        });
+
+
+                    }
+                    else if (child is Polygon polygon)
+                    {
+                        var parent = polygon.Parent as UIElement;
+                        var location = polygon.TranslatePoint(new Point(0, 0), parent);
+
+                        //Console.WriteLine(polygon.Fill);
+                        //Console.WriteLine(polygon.Stroke);
+                        //Console.WriteLine(polygon.StrokeThickness);
+                        //Console.WriteLine(polygon.Points);
+                        //Console.WriteLine(parent);
+                        //Console.WriteLine(location);
+
+                        childrenObjects.Add(new ShapeObject()
+                        {
+                            ShapeType = "Polygon",
+                            Fill = polygon.Fill,
+                            Stroke = polygon.Stroke,
+                            StrokeThickness = polygon.StrokeThickness,
+                            Points = polygon.Points,
+                            StartPoint = location
+
+                        });
+
+
+                    }
+                    else if (child is Ellipse ellipse)
+                    {
+                        var parent = ellipse.Parent as UIElement;
+                        var location = ellipse.TranslatePoint(new Point(0, 0), parent);
+
+
+                        //Console.WriteLine(ellipse.Width);
+                        //Console.WriteLine(ellipse.Height);
+                        //Console.WriteLine(ellipse.Fill);
+                        //Console.WriteLine(ellipse.Stroke);
+                        //Console.WriteLine(ellipse.StrokeThickness);
+                        //Console.WriteLine(location);
+
+
+                        childrenObjects.Add(new ShapeObject()
+                        {
+                            ShapeType = "Ellipse",
+                            Fill = ellipse.Fill,
+                            Width = ellipse.Width,
+                            Height = ellipse.Height,
+                            Stroke = ellipse.Stroke,
+                            StrokeThickness = ellipse.StrokeThickness,
+                            StartPoint = location
+
+                        });
+
+                    }
+
+
+
+                }
+
+                SaveObjects currentSaved = new SaveObjects();
+                currentSaved.inkStrokeData = inkc.Strokes;
+                currentSaved.shapesData = childrenObjects;
+
+            
+                string inkcDataStr = JsonConvert.SerializeObject(currentSaved);
+
+                System.IO.File.WriteAllText(Filename, inkcDataStr);
             }
-            catch (Exception e) {
-                Console.WriteLine(e);
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                throw;
             }
-            //inkc.EraserShape = new EllipseStylusShape(20, 20);
-            //inkc.EraserShape = new RectangleStylusShape(20, 20);
+
         }
 
         public void LoadFile(string Filename) {
             try
             {
-                FileStream fs = new FileStream(Filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-                inkc.Strokes = new StrokeCollection(fs);
+                //FileStream fs = new FileStream(Filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                //inkc.Strokes = new StrokeCollection(fs);
                 
+                using (StreamReader file = File.OpenText(Filename))
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    CreateNew();
+
+                    JObject o2 = (JObject)JToken.ReadFrom(reader);
+
+                    var savedShapes = o2["shapesData"].ToObject<ShapeObject[]>();
 
 
+                    foreach (var shape in savedShapes)
+                    {
+
+                        switch (shape.ShapeType)
+                        {
+                            case "Rectangle":
+                                Rectangle rectangle = new Rectangle
+                                {
+                                    Fill = shape.Fill,
+                                    Stroke = shape.Stroke,
+                                    StrokeThickness = shape.StrokeThickness,
+                                    Width = shape.Width,
+                                    Height = shape.Height
+                                };
+
+
+
+                                // Set the position of the rectangle
+                                InkCanvas.SetLeft(rectangle, shape.StartPoint.X);
+                                InkCanvas.SetTop(rectangle, shape.StartPoint.Y);
+
+                                // Add the ellipse to the InkCanvas
+                                inkc.Children.Add(rectangle);
+
+                                break;
+                            case "Polygon":
+                                Polygon triangle = new Polygon
+                                {
+                                    Fill = shape.Fill,
+                                    Stroke = shape.Stroke,
+                                    StrokeThickness = shape.StrokeThickness
+                                    
+                                };
+
+
+                                triangle.RenderTransform = new TranslateTransform(shape.StartPoint.X, shape.StartPoint.Y);
+                                triangle.Points = shape.Points;
+
+                                // Add the ellipse to the InkCanvas
+                                inkc.Children.Add(triangle);
+
+                                break;
+                            case "Ellipse":
+
+                                Ellipse ellipse = new Ellipse
+                                {
+                                    Fill = shape.Fill,
+                                    Stroke = shape.Stroke,
+                                    StrokeThickness = shape.StrokeThickness,
+                                    Width = shape.Width,
+                                    Height = shape.Height
+                                };
+
+                                // Set the position of the ellipse
+                                InkCanvas.SetLeft(ellipse, shape.StartPoint.X);
+                                InkCanvas.SetTop(ellipse, shape.StartPoint.Y);
+
+                                // Add the ellipse to the InkCanvas
+                                inkc.Children.Add(ellipse);
+
+                                break;
+                            default:
+                                break;
+
+                        }
+                    }
+                }
 
             }
             catch (Exception e) {

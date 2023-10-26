@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Painter"
         mc:Ignorable="d"
-        Title="DrawingWin" Height="800" Width="1000"
+        Title="Painter" Height="800" Width="1000"
         ResizeMode="NoResize">
 
     <DockPanel >
