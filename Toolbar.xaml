@@ -11,9 +11,6 @@
 
     <ToolBarTray Orientation="Vertical" >
 
-
-
-
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <Button ToolTip="Open" Width="44" Height="44" Click="NewFile_Click">
                 <Image Source="Icons/create.png" />
@@ -29,7 +26,7 @@
         </ToolBar>
 
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" >
-            
+
             <RadioButton x:Name="Mode_Draw"
                          ToolTip="Draw" 
                          Width="44" 
@@ -50,7 +47,7 @@
                          Height="44"
                          Checked="rbMode_Checked">
                 <Image Source="Icons/erase.png" />
-              
+
             </RadioButton>
             <Separator/>
 
@@ -81,28 +78,133 @@
 
 
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-            <Button ToolTip="Choose Color" 
+            <ToggleButton x:Name="tbColorPallate" ToolTip="Choose Color" 
                     Width="44" 
-                    Height="44"
-                    >
-                <Image Source="Icons/paint_palette.png" />
+                    Height="44">
 
-                
-            </Button>
+                <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="Icons/paint_palette.png" Stretch="Uniform" TileMode="None" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="Icons/paint_palette.png"
+                                                    Stretch="Uniform"
+                                                    TileMode="None" />
+                                    </Setter.Value>
+                                </Setter>
 
-            <Button ToolTip="Stroke Size" 
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+
+
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="Icons/paint_palette.png"
+                                                    Stretch="Uniform"
+                                                    TileMode="None" />
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+
+
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+
+                <Popup x:Name="ColorPallatePopup" 
+                       StaysOpen="False" 
+                       IsOpen="{Binding IsChecked, ElementName=tbColorPallate, Mode=TwoWay}"
+                       VerticalAlignment="Bottom"
+                       PlacementTarget="{Binding ElementName=tbColorPallate}"
+                       Placement="Right"
+                       >
+                    <Border Width="200" Height="200" Background="White" BorderThickness="1">
+                        <StackPanel>
+                            <Button>Click Me 1</Button>
+                            <Button>Click Me 2</Button>
+                        </StackPanel>
+
+                    </Border>
+                </Popup>
+
+            </ToggleButton>
+
+
+
+            <ToggleButton x:Name="tbStrokeSize" ToolTip="Stroke Size" 
                     Width="44" 
-                    Height="44"
-                    >
-                <Image Source="Icons/line_width.png" />
+                    Height="44">
+
+                <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="Icons/line_width.png" Stretch="Uniform" TileMode="None" />
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="Icons/line_width.png"
+                                                    Stretch="Uniform"
+                                                    TileMode="None" />
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="BorderBrush" Value="Transparent"/>
 
 
-            </Button>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="Icons/line_width.png"
+                                    Stretch="Uniform"
+                                    TileMode="None" />
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+
+
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+
+                <Popup x:Name="StrokeSizePopup" 
+                       StaysOpen="False" 
+                       IsOpen="{Binding IsChecked, ElementName=tbStrokeSize, Mode=TwoWay}"
+                       VerticalAlignment="Bottom"
+                       PlacementTarget="{Binding ElementName=tbStrokeSize}"
+                       Placement="Right">
+                    <Border Width="200" Height="200" Background="White" BorderThickness="1">
+                        <StackPanel Background="LightGray"/>
+                    </Border>
+                </Popup>
+
+
+
+
+            </ToggleButton>
             <Separator/>
 
         </ToolBar>
-        
-        
+
+
+
+
+
 
         <!--<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <Button ToolTip="Undo" 
