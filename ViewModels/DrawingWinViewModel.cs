@@ -117,6 +117,24 @@ namespace Painter.ViewModels
             set => Set(ref _isShapeTriangle, value);
         }
 
+        private String _strokeColor = "Black";
+        public String StrokeColor
+        {
+            get => _strokeColor;
+            set {
+
+                DrawingAttributesInkCanvas.Color = (Color)ColorConverter.ConvertFromString(value);
+                Set(ref _strokeColor, value);
+
+            }   
+        }
+
+        private String _shapeFillColor = "White";
+        public String ShapeFillColor
+        {
+            get => _shapeFillColor;
+            set => Set(ref _shapeFillColor, value);
+        }
 
         private void updateEditModeFlag(EditModeType value)
         {
@@ -131,33 +149,15 @@ namespace Painter.ViewModels
 
 
 
-        //private DrawingAttributes _drawingAttributesInkCanvas = new DrawingAttributes();
 
-        //public DrawingAttributes DrawingAttributesInkCanvas
-        //{
-        //    get => _drawingAttributesInkCanvas;
-        //    set => Set(ref _drawingAttributesInkCanvas, value);
-        //}
+        private DrawingAttributes _drawingAttributesInkCanvas = new DrawingAttributes();
 
-        //private double _strokeSize = 1;
+        public DrawingAttributes DrawingAttributesInkCanvas
+        {
+            get => _drawingAttributesInkCanvas;
+            set => Set(ref _drawingAttributesInkCanvas, value);
+        }
 
-        //public double StrokeSize
-        //{
-        //    get => _strokeSize;
-        //    set
-        //    {
-        //        if (EditModeInkCanvas == InkCanvasEditingMode.Ink)
-        //        {
-        //            var newSize = value;
-
-        //            DrawingAttributesInkCanvas.Width = newSize;
-        //            DrawingAttributesInkCanvas.Height = newSize;
-
-        //        }
-
-        //        Set(ref _strokeSize, value);
-        //    }
-        //}
 
 
 
@@ -166,6 +166,7 @@ namespace Painter.ViewModels
             //Default 
             CurrentPaintingMode = EditModeType.Draw;
             updateEditModeFlag(CurrentPaintingMode);
+            StrokeColor = "Black";
 
         }
     }

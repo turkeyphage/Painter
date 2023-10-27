@@ -38,8 +38,8 @@
                             <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Image Source="../../Icons/draw_line.png" Width="32" Height="32" Margin="0 0 10 0"></Image>
-                                <Ellipse Fill="Yellow" Width="22" Height="22"/>
+                                <Image Source="/Icons/draw_line.png" Width="32" Height="32" Margin="0 0 10 0"></Image>
+                                <Ellipse Fill="{Binding drawModel.StrokeColor, Mode=OneWay}" Width="22" Height="22"/>
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -70,8 +70,8 @@
 
                             <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Image Source="../../Icons/fill_color.png" Width="32" Height="32" Margin="0 0 10 0"></Image>
-                                <Ellipse Fill="Red" Width="22" Height="22"/>
+                                <Image Source="/Icons/fill_color.png" Width="32" Height="32" Margin="0 0 10 0"></Image>
+                                <Ellipse Fill="{Binding drawModel.ShapeFillColor, Mode=OneWay}" Width="22" Height="22"/>
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -130,7 +130,9 @@
 
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                    <ListBox Name="lbColors" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="14" Background="Transparent">
+                    <ListBox Name="lbColors"
+                             
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Margin="14" Background="Transparent" SelectionChanged="lbColors_SelectionChanged">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel IsItemsHost="True" 

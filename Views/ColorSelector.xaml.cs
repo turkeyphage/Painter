@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Painter.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,34 +22,22 @@ namespace Painter.Views
     /// </summary>
     public partial class ColorSelector : UserControl
     {
+
+        DrawingWinViewModel dwModel = DrawingWinViewModel.Instance;
+        ColorSelectorViewModel colModel = new ColorSelectorViewModel();
         public ColorSelector()
         {
             InitializeComponent();
             tbLineColor.IsChecked = true;
             tbShapeColor.IsChecked = false;
 
-            List<string> cols = new List<string>() { 
-                "Black" , 
-                "LightSlateGray" , 
-                "DarkRed",
-                "Red",
-                "DarkOrange",
-                "Yellow",
-                "Green",
-                "DeepSkyBlue",
-                "RoyalBlue",
-                "MediumOrchid",
-                "White",
-                "LightGray",
-                "RosyBrown",
-                "Pink",
-                "Orange",
-                "Beige",
-                "YellowGreen",
-                "PaleTurquoise",
-                "SteelBlue",
-                "Lavender"};
-            lbColors.ItemsSource = cols;
+            DataContext = new
+            {
+                drawModel = dwModel,
+                colorModel = colModel,
+            };
+
+            lbColors.ItemsSource = colModel.ColorList;
         }
 
         private void tbShapeColor_Checked(object sender, RoutedEventArgs e)
@@ -65,6 +54,22 @@ namespace Painter.Views
             //Console.WriteLine(obj.IsChecked);
 
             tbShapeColor.IsChecked = !obj.IsChecked;
+        }
+
+        private void lbColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Console.WriteLine((sender as ListBox).SelectedValue);
+
+            var currTab = tbLineColor.IsChecked == true ? tbLineColor : tbShapeColor;
+
+            if (currTab == tbLineColor)
+            {
+                dwModel.StrokeColor = ((sender as ListBox).SelectedValue) as string;
+            }
+            else {
+                dwModel.ShapeFillColor = ((sender as ListBox).SelectedValue) as string;
+            }
+
         }
     }
 }

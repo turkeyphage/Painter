@@ -57,16 +57,14 @@ namespace Painter
         {
             InitializeComponent();
 
-            inkc.DefaultDrawingAttributes.FitToCurve = true;
-            inkc.DefaultDrawingAttributes.Color = Color.FromArgb(255, 255, 0, 255);
             DoStrokes = new Stack<DoStroke>();
 
             UndoStrokes = new Stack<DoStroke>();
 
-
-            // ChangeMode(EditModeType.Draw);
             inkc.Strokes.StrokesChanged += Strokes_StrokesChanged;
             DataContext = model;
+
+            model.DrawingAttributesInkCanvas.FitToCurve = true;
         }
 
 
@@ -397,8 +395,8 @@ namespace Painter
             iniP = e.GetPosition(inkc);
             isCreatingShape = true;
 
-            SolidColorBrush fillColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffaacc"));
-            SolidColorBrush strokeColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#aabbcc"));
+            SolidColorBrush fillColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(model.ShapeFillColor));
+            SolidColorBrush strokeColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(model.StrokeColor));
 
             switch (model.CurrentPaintingMode)
             {
@@ -615,6 +613,11 @@ namespace Painter
             Console.WriteLine("Resize");
 
 
+        }
+
+        private void DrawWin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

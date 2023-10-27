@@ -14,13 +14,13 @@
 
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <Button ToolTip="Open" Width="44" Height="44" Click="NewFile_Click">
-                <Image Source="../../Icons/create.png" />
+                <Image Source="/Icons/create.png" />
             </Button>
             <Button ToolTip="Open" Width="44" Height="44" Click="OpenFile_Click">
-                <Image Source="../../Icons/open.png" />
+                <Image Source="/Icons/open.png" />
             </Button>
             <Button ToolTip="Save" Width="44" Height="44" Click="SaveFile_Click">
-                <Image Source="../../Icons/save.png" />
+                <Image Source="/Icons/save.png" />
             </Button>
 
             <Separator/>
@@ -34,7 +34,7 @@
                          Height="44" 
                          Checked="rbMode_Checked"
                          IsChecked="{Binding drawData.IsDraw, Mode=OneWay}">
-                <Image Source="../../Icons/draw.png" />
+                <Image Source="/Icons/draw.png" />
             </RadioButton>
             <RadioButton x:Name="Mode_Select"
                          ToolTip="Select" 
@@ -42,7 +42,7 @@
                          Height="44"
                          Checked="rbMode_Checked"
                          IsChecked="{Binding drawData.IsSelect, Mode=OneWay}">
-                <Image Source="../../Icons/select.png" />
+                <Image Source="/Icons/select.png" />
             </RadioButton>
             <RadioButton x:Name="Mode_Erase" 
                          ToolTip="Erase" 
@@ -50,7 +50,7 @@
                          Height="44"
                          Checked="rbMode_Checked"
                          IsChecked="{Binding drawData.IsErase, Mode=OneWay}">
-                <Image Source="../../Icons/erase.png" />
+                <Image Source="/Icons/erase.png" />
 
             </RadioButton>
             <Separator/>
@@ -62,7 +62,7 @@
                          Height="44"
                          Checked="rbShape_Checked"
                          IsChecked="{Binding drawData.IsShapeEllipse, Mode=OneWay}">
-                <Image Source="../../Icons/circle.png" />
+                <Image Source="/Icons/circle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Rectangle" 
                          ToolTip="Rectangle" 
@@ -70,7 +70,7 @@
                          Height="44"
                          Checked="rbShape_Checked"
                          IsChecked="{Binding drawData.IsShapeRect, Mode=OneWay}">
-                <Image Source="../../Icons/rectangle.png" />
+                <Image Source="/Icons/rectangle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Triangle" 
                          ToolTip="Triangle" 
@@ -78,7 +78,7 @@
                          Height="44"
                          Checked="rbShape_Checked"
                          IsChecked="{Binding drawData.IsShapeTriangle, Mode=OneWay}">
-                <Image Source="../../Icons/triangle.png" />
+                <Image Source="/Icons/triangle.png" />
             </RadioButton>
             <Separator/>
         </ToolBar>
@@ -93,14 +93,14 @@
                     <Style TargetType="ToggleButton">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../../Icons/paint_palette.png" Stretch="Uniform" TileMode="None" />
+                                <ImageBrush ImageSource="/Icons/paint_palette.png" Stretch="Uniform" TileMode="None" />
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="../../Icons/paint_palette.png"
+                                        <ImageBrush ImageSource="/Icons/paint_palette.png"
                                                     Stretch="Uniform"
                                                     TileMode="None" />
                                     </Setter.Value>
@@ -113,7 +113,7 @@
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="../../Icons/paint_palette.png"
+                                        <ImageBrush ImageSource="/Icons/paint_palette.png"
                                                     Stretch="Uniform"
                                                     TileMode="None" />
                                     </Setter.Value>
@@ -152,14 +152,14 @@
                     <Style TargetType="ToggleButton">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../../Icons/line_width.png" Stretch="Uniform" TileMode="None" />
+                                <ImageBrush ImageSource="/Icons/line_width.png" Stretch="Uniform" TileMode="None" />
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="../../Icons/line_width.png"
+                                        <ImageBrush ImageSource="/Icons/line_width.png"
                                                     Stretch="Uniform"
                                                     TileMode="None" />
                                     </Setter.Value>
@@ -172,7 +172,7 @@
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <ImageBrush ImageSource="../../Icons/line_width.png"
+                                        <ImageBrush ImageSource="/Icons/line_width.png"
                                     Stretch="Uniform"
                                     TileMode="None" />
                                     </Setter.Value>
@@ -215,13 +215,13 @@
                     Width="44" 
                     Height="44"
                     Click="bUndo_Click">        
-                <Image Source="../../Icons/undo.png" />
+                <Image Source="/Icons/undo.png" />
             </Button>
             <Button ToolTip="Redo" 
                     Width="44" 
                     Height="44"
                     Click="bRedo_Click">
-                <Image Source="../../Icons/redo.png" />
+                <Image Source="/Icons/redo.png" />
             </Button>
         </ToolBar>-->
 

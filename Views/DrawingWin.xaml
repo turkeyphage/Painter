@@ -8,6 +8,7 @@
         xmlns:vm="clr-namespace:Painter.ViewModels"
         Title="Painter" Height="800" Width="1000"
         ResizeMode="NoResize"
+        
         >
 
 
@@ -30,10 +31,11 @@
                            SelectionResized="inkc_SelectionResized"
                            
                            EditingMode="{Binding InkCanvasMode, Mode=TwoWay}"
+                           DefaultDrawingAttributes="{Binding DrawingAttributesInkCanvas, Mode=TwoWay}"
                            >
-                    <InkCanvas.DefaultDrawingAttributes>
+                    <!--<InkCanvas.DefaultDrawingAttributes>
                         <DrawingAttributes Height="10" Width="10" />
-                    </InkCanvas.DefaultDrawingAttributes>
+                    </InkCanvas.DefaultDrawingAttributes>-->
 
                 </InkCanvas>
             </ScrollViewer>

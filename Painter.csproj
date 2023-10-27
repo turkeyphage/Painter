@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Models\EditModeType.cs" />
     <Compile Include="Models\CanvasDataType.cs" />
+    <Compile Include="ViewModels\ColorSelectorViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
