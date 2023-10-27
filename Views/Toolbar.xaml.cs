@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Painter.Models;
+using Painter.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,8 @@ namespace Painter
     {
 
 
-
+        DrawingWinViewModel dwModel = DrawingWinViewModel.Instance;
+        ToolbarViewModel toolModel = ToolbarViewModel.Instance; 
 
         public Toolbar()
         {
@@ -42,6 +44,12 @@ namespace Painter
             //    "Green","DeepSkyBlue","RoyalBlue","MediumOrchid","White","LightGray","RosyBrown","Pink","Orange","Beige",
             //    "YellowGreen","PaleTurquoise","SteelBlue","Lavender"};
             //lbColors.ItemsSource = cols;
+
+            DataContext = new
+            {
+                drawData = dwModel,
+                toolData = toolModel
+            };
         }
 
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)

@@ -31,21 +31,24 @@
                          ToolTip="Draw" 
                          Width="44" 
                          Height="44" 
-                         Checked="rbMode_Checked">
+                         Checked="rbMode_Checked"
+                         IsChecked="{Binding drawData.IsDraw, Mode=OneWay}">
                 <Image Source="../../Icons/draw.png" />
             </RadioButton>
             <RadioButton x:Name="Mode_Select"
                          ToolTip="Select" 
                          Width="44" 
                          Height="44"
-                         Checked="rbMode_Checked">
+                         Checked="rbMode_Checked"
+                         IsChecked="{Binding drawData.IsSelect, Mode=OneWay}">
                 <Image Source="../../Icons/select.png" />
             </RadioButton>
             <RadioButton x:Name="Mode_Erase" 
                          ToolTip="Erase" 
                          Width="44" 
                          Height="44"
-                         Checked="rbMode_Checked">
+                         Checked="rbMode_Checked"
+                         IsChecked="{Binding drawData.IsErase, Mode=OneWay}">
                 <Image Source="../../Icons/erase.png" />
 
             </RadioButton>
@@ -56,21 +59,24 @@
                          ToolTip="Ellipse" 
                          Width="44" 
                          Height="44"
-                         Checked="rbShape_Checked">
+                         Checked="rbShape_Checked"
+                         IsChecked="{Binding drawData.IsShapeEllipse, Mode=OneWay}">
                 <Image Source="../../Icons/circle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Rectangle" 
                          ToolTip="Rectangle" 
                          Width="44" 
                          Height="44"
-                         Checked="rbShape_Checked">
+                         Checked="rbShape_Checked"
+                         IsChecked="{Binding drawData.IsShapeRect, Mode=OneWay}">
                 <Image Source="../../Icons/rectangle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Triangle" 
                          ToolTip="Triangle" 
                          Width="44" 
                          Height="44"
-                         Checked="rbShape_Checked">
+                         Checked="rbShape_Checked"
+                         IsChecked="{Binding drawData.IsShapeTriangle, Mode=OneWay}">
                 <Image Source="../../Icons/triangle.png" />
             </RadioButton>
             <Separator/>

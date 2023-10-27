@@ -86,7 +86,7 @@ namespace Painter
 
         public void CreateNew() {
             // ChangeMode(EditModeType.Draw);
-            model.InkCanvasMode = InkCanvasEditingMode.Ink;
+            model.CurrentPaintingMode = EditModeType.Draw;
             handle = false;
             DoStrokes.Clear();
             UndoStrokes.Clear();
@@ -388,26 +388,6 @@ namespace Painter
 
             model.CurrentPaintingMode = mode;
             
-            switch (mode)
-            {
-
-                case EditModeType.Draw:
-                    model.InkCanvasMode = InkCanvasEditingMode.Ink; 
-                    break;
-                case EditModeType.Erase:
-                    model.InkCanvasMode = InkCanvasEditingMode.EraseByPoint; 
-                    break;
-                case EditModeType.Select:
-                    model.InkCanvasMode = InkCanvasEditingMode.Select; 
-                    break;
-                case EditModeType.Shape_Rect:
-                case EditModeType.Shape_Ellipse:
-                case EditModeType.Shape_Triangle:
-                    model.InkCanvasMode = InkCanvasEditingMode.None; 
-                    break;
-                default: 
-                    break;
-            }
 
         }
 
