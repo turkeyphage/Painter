@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using System.Xaml;
 using Newtonsoft.Json.Linq;
 using System.Windows.Markup;
+using Painter.ViewModels;
 
 namespace Painter
 {
@@ -50,8 +51,7 @@ namespace Painter
         private UIElement currentShape;
         
 
-        private EditModeType _currentMode = EditModeType.Draw;
-
+        DrawingWinViewModel model = DrawingWinViewModel.Instance;
 
         public DrawingWin()
         {
@@ -64,8 +64,9 @@ namespace Painter
             UndoStrokes = new Stack<DoStroke>();
 
 
-            ChangeMode(EditModeType.Draw);
+            // ChangeMode(EditModeType.Draw);
             inkc.Strokes.StrokesChanged += Strokes_StrokesChanged;
+            DataContext = model;
         }
 
 
@@ -84,7 +85,8 @@ namespace Painter
 
 
         public void CreateNew() {
-            ChangeMode(EditModeType.Draw);
+            // ChangeMode(EditModeType.Draw);
+            model.InkCanvasMode = InkCanvasEditingMode.Ink;
             handle = false;
             DoStrokes.Clear();
             UndoStrokes.Clear();
@@ -383,23 +385,25 @@ namespace Painter
 
         public void ChangeMode(EditModeType mode)
         {
-            _currentMode = mode;
+
+            model.CurrentPaintingMode = mode;
+            
             switch (mode)
             {
 
-                case EditModeType.Draw: 
-                    inkc.EditingMode = InkCanvasEditingMode.Ink; 
+                case EditModeType.Draw:
+                    model.InkCanvasMode = InkCanvasEditingMode.Ink; 
                     break;
-                case EditModeType.Erase: 
-                    inkc.EditingMode = InkCanvasEditingMode.EraseByPoint; 
+                case EditModeType.Erase:
+                    model.InkCanvasMode = InkCanvasEditingMode.EraseByPoint; 
                     break;
-                case EditModeType.Select: 
-                    inkc.EditingMode = InkCanvasEditingMode.Select; 
+                case EditModeType.Select:
+                    model.InkCanvasMode = InkCanvasEditingMode.Select; 
                     break;
                 case EditModeType.Shape_Rect:
                 case EditModeType.Shape_Ellipse:
                 case EditModeType.Shape_Triangle:
-                    inkc.EditingMode = InkCanvasEditingMode.None; 
+                    model.InkCanvasMode = InkCanvasEditingMode.None; 
                     break;
                 default: 
                     break;
@@ -416,7 +420,7 @@ namespace Painter
             SolidColorBrush fillColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ffaacc"));
             SolidColorBrush strokeColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#aabbcc"));
 
-            switch (_currentMode)
+            switch (model.CurrentPaintingMode)
             {
                 case EditModeType.Shape_Ellipse:
                     
@@ -442,7 +446,7 @@ namespace Painter
                 // Calculate the size of the shape based on the mouse position
                 Point currentMousePosition = e.GetPosition(inkc);
 
-                switch (_currentMode)
+                switch (model.CurrentPaintingMode)
                 {
                     case EditModeType.Shape_Ellipse:
                         DrawEllipse(currentMousePosition);

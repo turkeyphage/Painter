@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Painter"
         mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Painter.ViewModels"
         Title="Painter" Height="800" Width="1000"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        >
+
+
 
     <DockPanel >
         <local:Toolbar x:Name="toolbar"
@@ -24,6 +28,8 @@
                            MouseUp="inkc_MouseUp"
                            SelectionChanged="inkc_SelectionChanged"
                            SelectionResized="inkc_SelectionResized"
+                           
+                           EditingMode="{Binding InkCanvasMode, Mode=TwoWay}"
                            >
                     <InkCanvas.DefaultDrawingAttributes>
                         <DrawingAttributes Height="10" Width="10" />

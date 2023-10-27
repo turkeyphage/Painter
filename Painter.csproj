@@ -136,12 +136,14 @@
     </Compile>
     <Compile Include="Models\EditModeType.cs" />
     <Compile Include="Models\CanvasDataType.cs" />
-    <Compile Include="Toolbar.xaml.cs">
+    <Compile Include="Views\Toolbar.xaml.cs">
       <DependentUpon>Toolbar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\DrawingWinViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawingWin.xaml.cs">
+    <Compile Include="Views\DrawingWin.xaml.cs">
       <DependentUpon>DrawingWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -175,11 +177,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DrawingWin.xaml">
+    <Page Include="Views\DrawingWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Toolbar.xaml">
+    <Page Include="Views\Toolbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,5 +243,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
