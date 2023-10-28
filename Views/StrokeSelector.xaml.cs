@@ -36,20 +36,6 @@ namespace Painter.Views
             };
         }
 
-        //private void tbShapeBorderSize_Checked(object sender, RoutedEventArgs e)
-        //{
-
-        //    strokeModel.setupToggleButtonStatus(false);
-
-
-        //}
-
-        //private void tbStrokeSize_Checked(object sender, RoutedEventArgs e)
-        //{
-
-        //    strokeModel.setupToggleButtonStatus(true);
-        //}
-
         private void toggleStatusChanged(object sender, RoutedEventArgs e)
         {
             ToggleButton obj = sender as ToggleButton;

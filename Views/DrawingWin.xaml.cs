@@ -30,21 +30,6 @@ namespace Painter
     public partial class DrawingWin : Window
     {
 
-        public Stack<DoStroke> DoStrokes { get; set; }
-
-        public Stack<DoStroke> UndoStrokes { get; set; }
-
-
-        public struct DoStroke
-        {
-            public string ActionFlag { get; set; }
-            public System.Windows.Ink.Stroke Stroke { get; set; }
-        }
-
-
-        private bool handle = true;
-
-
         private Point iniP;
 
         private bool isCreatingShape = false;
@@ -57,10 +42,6 @@ namespace Painter
         {
             InitializeComponent();
 
-            DoStrokes = new Stack<DoStroke>();
-
-            UndoStrokes = new Stack<DoStroke>();
-
             inkc.Strokes.StrokesChanged += Strokes_StrokesChanged;
             DataContext = model;
 
@@ -71,26 +52,15 @@ namespace Painter
 
         private void Strokes_StrokesChanged(object sender, System.Windows.Ink.StrokeCollectionChangedEventArgs e)
         {
-            if (handle)
-            {
-                DoStrokes.Push(new DoStroke
-                {
-                    ActionFlag = e.Added.Count > 0 ? "ADD" : "REMOVE",
-                    Stroke = e.Added.Count > 0 ? e.Added[0] : e.Removed[0]
-                });
-            }
+
         }
 
 
         public void CreateNew() {
             // ChangeMode(EditModeType.Draw);
             model.CurrentPaintingMode = EditModeType.Draw;
-            handle = false;
-            DoStrokes.Clear();
-            UndoStrokes.Clear();
             inkc.Strokes.Clear();
             inkc.Children.Clear();
-            handle = true;
         }
 
         public void Save(string Filename)
@@ -115,13 +85,6 @@ namespace Painter
                         var location = rect.TranslatePoint(new Point(0, 0), parent);
 
 
-                        //Console.WriteLine(rect.Width);
-                        //Console.WriteLine(rect.Height);
-                        //Console.WriteLine(rect.Fill);
-                        //Console.WriteLine(rect.Stroke);
-                        //Console.WriteLine(rect.StrokeThickness);
-                        //Console.WriteLine(location);
-
                         childrenObjects.Add(new ShapeObject()
                         {
                             ShapeType = "Rectangle",
@@ -141,12 +104,6 @@ namespace Painter
                         var parent = polygon.Parent as UIElement;
                         var location = polygon.TranslatePoint(new Point(0, 0), parent);
 
-                        //Console.WriteLine(polygon.Fill);
-                        //Console.WriteLine(polygon.Stroke);
-                        //Console.WriteLine(polygon.StrokeThickness);
-                        //Console.WriteLine(polygon.Points);
-                        //Console.WriteLine(parent);
-                        //Console.WriteLine(location);
 
                         childrenObjects.Add(new ShapeObject()
                         {
@@ -165,15 +122,6 @@ namespace Painter
                     {
                         var parent = ellipse.Parent as UIElement;
                         var location = ellipse.TranslatePoint(new Point(0, 0), parent);
-
-
-                        //Console.WriteLine(ellipse.Width);
-                        //Console.WriteLine(ellipse.Height);
-                        //Console.WriteLine(ellipse.Fill);
-                        //Console.WriteLine(ellipse.Stroke);
-                        //Console.WriteLine(ellipse.StrokeThickness);
-                        //Console.WriteLine(location);
-
 
                         childrenObjects.Add(new ShapeObject()
                         {
@@ -329,64 +277,10 @@ namespace Painter
             }
         }
 
-        public void Redo()
-        {
-            Console.WriteLine("Redo");
-            Console.WriteLine(inkc);
-
-
-            handle = false;
-            if (UndoStrokes.Count > 0)
-            {
-                DoStroke @do = UndoStrokes.Pop();
-                if (@do.ActionFlag.Equals("ADD"))
-                {
-                    inkc.Strokes.Add(@do.Stroke);
-                }
-                else
-                {
-                    inkc.Strokes.Remove(@do.Stroke);
-                }
-            }
-            handle = true;
-
-
-
-
-        }
-
-        public void Undo()
-        {
-            Console.WriteLine("Undo");
-            Console.WriteLine(inkc);
-
-            handle = false;
-
-            if (DoStrokes.Count > 0)
-            {
-                DoStroke @do = DoStrokes.Pop();
-                if (@do.ActionFlag.Equals("ADD"))
-                {
-                    inkc.Strokes.Remove(@do.Stroke);
-                }
-                else
-                {
-                    inkc.Strokes.Add(@do.Stroke);
-                }
-
-                UndoStrokes.Push(@do);
-            }
-            handle = true;
-
-
-        }
-
         public void ChangeMode(EditModeType mode)
         {
-
             model.CurrentPaintingMode = mode;
             
-
         }
 
         private void inkc_MouseDown(object sender, MouseButtonEventArgs e)
@@ -576,20 +470,6 @@ namespace Painter
         }
 
 
-        private List<Point> GenerateElipseGeometry(Point st, Point ed) { 
-            double a = 0.5 * (ed.X - st.X);
-            double b = 0.5 * (ed.Y - st.Y);
-
-            List<Point> pointList = new List<Point>();
-            for(double r = 0; r <= 2*Math.PI; r = r + 0.01)
-            {
-                pointList.Add(new System.Windows.Point(0.5 * (st.X + ed.X) + a * Math.Cos(r), 0.5 * (st.Y + ed.Y) + b * Math.Sin(r)));
-
-
-            }
-            return pointList;
-        }
-
         private void inkc_SelectionChanged(object sender, EventArgs e)
         {
             if (inkc.GetSelectedStrokes().Count > 0 || inkc.GetSelectedElements().Count > 0)
@@ -611,7 +491,6 @@ namespace Painter
         private void inkc_SelectionResized(object sender, EventArgs e)
         {
             Console.WriteLine("Resize");
-
 
         }
 

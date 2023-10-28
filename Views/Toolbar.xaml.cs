@@ -40,11 +40,6 @@ namespace Painter
         void Start(bool loadSettings = true)
         {
 
-            //List<string> cols = new List<string>() { "Black" , "LightSlateGray" , "DarkRed","Red","DarkOrange","Yellow",
-            //    "Green","DeepSkyBlue","RoyalBlue","MediumOrchid","White","LightGray","RosyBrown","Pink","Orange","Beige",
-            //    "YellowGreen","PaleTurquoise","SteelBlue","Lavender"};
-            //lbColors.ItemsSource = cols;
-
             DataContext = new
             {
                 drawData = dwModel,
@@ -138,28 +133,7 @@ namespace Painter
                 default:
                     break;
             }
-
         }
-
-
-        private void bPalette_Click(object sender, RoutedEventArgs e)
-        {
-            
-
-        }
-
-        private void bRedo_Click(object sender, RoutedEventArgs e)
-        {
-            ((DrawingWin)System.Windows.Application.Current.MainWindow).Redo();
-
-        }
-
-        private void bUndo_Click(object sender, RoutedEventArgs e)
-        {
-            ((DrawingWin)System.Windows.Application.Current.MainWindow).Undo();
-
-        }
-
 
 
     }

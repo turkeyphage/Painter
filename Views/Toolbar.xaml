@@ -205,44 +205,6 @@
 
         </ToolBar>
 
-
-
-
-
-
-        <!--<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-            <Button ToolTip="Undo" 
-                    Width="44" 
-                    Height="44"
-                    Click="bUndo_Click">        
-                <Image Source="/Icons/undo.png" />
-            </Button>
-            <Button ToolTip="Redo" 
-                    Width="44" 
-                    Height="44"
-                    Click="bRedo_Click">
-                <Image Source="/Icons/redo.png" />
-            </Button>
-        </ToolBar>-->
-
-        <!--<ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-            <ListBox Name="lbColors" Background="AliceBlue" >
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" Orientation="Horizontal" Width="60"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Rectangle Height="20" Width="20" Stroke="Black" Fill="{Binding}"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </ToolBar>-->
-
-
     </ToolBarTray>
-
-
 
 </UserControl>
