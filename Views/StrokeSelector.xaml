@@ -143,7 +143,13 @@
 
 
                         <Canvas>
-                            <Path Stroke="{Binding dwModel.StrokeColor, Mode=OneWay}" StrokeThickness="{Binding dwModel.DrawingAttributesInkCanvas.Height , Mode=OneWay}" Visibility="{Binding skModel.StrokeCanvasVisibility, Mode=OneWay}">
+                            <Path Stroke="{Binding dwModel.StrokeColor, Mode=OneWay}" 
+                                  StrokeThickness="{Binding dwModel.DrawingAttributesInkCanvas.Height , Mode=OneWay}" 
+                                  Visibility="{Binding skModel.StrokeCanvasVisibility, Mode=OneWay}"
+                                  StrokeLineJoin="Round"
+                                  StrokeEndLineCap="Round"
+                                  StrokeStartLineCap="Round"
+                                  >
                                 <Path.Data>
                                     <PathGeometry>
                                         <PathGeometry.Figures>
