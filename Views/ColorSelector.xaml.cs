@@ -40,21 +40,6 @@ namespace Painter.Views
             lbColors.ItemsSource = colModel.ColorList;
         }
 
-        private void tbShapeColor_Checked(object sender, RoutedEventArgs e)
-        {
-            ToggleButton obj = sender as ToggleButton;
-            //Console.WriteLine(obj.IsChecked);
-
-            tbLineColor.IsChecked = !obj.IsChecked;
-        }
-
-        private void tbLineColor_Checked(object sender, RoutedEventArgs e)
-        {
-            ToggleButton obj = sender as ToggleButton;
-            //Console.WriteLine(obj.IsChecked);
-
-            tbShapeColor.IsChecked = !obj.IsChecked;
-        }
 
         private void lbColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -68,6 +53,26 @@ namespace Painter.Views
             }
             else {
                 dwModel.ShapeFillColor = ((sender as ListBox).SelectedValue) as string;
+            }
+
+        }
+
+
+
+
+        private void toggleStatusChanged(object sender, RoutedEventArgs e)
+        {
+            ToggleButton obj = sender as ToggleButton;
+
+            if (obj.Name == "tbLineColor")
+            {
+                tbLineColor.IsChecked = obj.IsChecked;
+                tbShapeColor.IsChecked = !obj.IsChecked;
+
+            }
+            else if(obj.Name == "tbShapeColor") {
+                tbShapeColor.IsChecked = obj.IsChecked;
+                tbLineColor.IsChecked = !obj.IsChecked;
             }
 
         }

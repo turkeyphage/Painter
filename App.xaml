@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Painter"
              StartupUri="Views/DrawingWin.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

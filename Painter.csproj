@@ -137,9 +137,13 @@
     <Compile Include="Models\EditModeType.cs" />
     <Compile Include="Models\CanvasDataType.cs" />
     <Compile Include="ViewModels\ColorSelectorViewModel.cs" />
+    <Compile Include="ViewModels\StrokeSelectorViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
     <Compile Include="Views\ColorSelector.xaml.cs">
       <DependentUpon>ColorSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StrokeSelector.xaml.cs">
+      <DependentUpon>StrokeSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Toolbar.xaml.cs">
       <DependentUpon>Toolbar.xaml</DependentUpon>
@@ -187,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DrawingWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StrokeSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,6 +263,9 @@
   <ItemGroup>
     <Resource Include="Icons\draw_line.png" />
     <Resource Include="Icons\line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\border.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -402,13 +402,13 @@ namespace Painter
             {
                 case EditModeType.Shape_Ellipse:
                     
-                    CreateEllipse(fillColor, strokeColor, 1);
+                    CreateEllipse(fillColor, strokeColor, model.ShapeStrokeThickness);
                     break;
                 case EditModeType.Shape_Triangle:
-                    CreateTriangle(fillColor, strokeColor, 1);
+                    CreateTriangle(fillColor, strokeColor, model.ShapeStrokeThickness);
                     break;
                 case EditModeType.Shape_Rect:
-                    CreateRectangle(fillColor, strokeColor, 1);
+                    CreateRectangle(fillColor, strokeColor, model.ShapeStrokeThickness);
                     break;
                 default:
                     break;
@@ -452,7 +452,7 @@ namespace Painter
 
 
 
-        private void CreateEllipse(Brush fillColor, Brush strokeColor, int strokeThickness)
+        private void CreateEllipse(Brush fillColor, Brush strokeColor, double strokeThickness)
         {
             Ellipse ellipse = new Ellipse
             {
@@ -476,7 +476,7 @@ namespace Painter
         }
 
 
-        private void CreateRectangle(Brush fillColor, Brush strokeColor, int strokeThickness)
+        private void CreateRectangle(Brush fillColor, Brush strokeColor, double strokeThickness)
         {
             Rectangle rectangle = new Rectangle
             {
@@ -501,7 +501,7 @@ namespace Painter
 
 
 
-        private void CreateTriangle(Brush fillColor, Brush strokeColor, int strokeThickness)
+        private void CreateTriangle(Brush fillColor, Brush strokeColor, double strokeThickness)
         {
             Polygon triangle = new Polygon
             {

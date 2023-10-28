@@ -147,8 +147,21 @@ namespace Painter.ViewModels
         }
 
 
+        //private double _shapeBorderWidthColor = "White";
+        //public String ShapeFillColor
+        //{
+        //    get => _shapeFillColor;
+        //    set => Set(ref _shapeFillColor, value);
+        //}
 
 
+        private double _shapeStrokeThickness = 0;
+
+        public double ShapeStrokeThickness {
+            get => _shapeStrokeThickness;
+            set => Set(ref _shapeStrokeThickness, value);
+
+        }
 
         private DrawingAttributes _drawingAttributesInkCanvas = new DrawingAttributes();
 
@@ -161,6 +174,8 @@ namespace Painter.ViewModels
 
 
 
+
+
         public DrawingWinViewModel()
         {
             //Default 
@@ -168,6 +183,10 @@ namespace Painter.ViewModels
             updateEditModeFlag(CurrentPaintingMode);
             StrokeColor = "Black";
 
+            DrawingAttributesInkCanvas.Width = 2;
+            DrawingAttributesInkCanvas.Height = 2;
+
+            ShapeStrokeThickness = 1;
         }
     }
 }

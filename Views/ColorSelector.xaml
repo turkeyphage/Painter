@@ -8,23 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <!--<Style x:Key="ColorSelectToggleButtonStyle" TargetType="ToggleButton">
-            <Setter Property="Background" Value="Yellow" />
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Style.Triggers>
-                --><!-- Remove hover effect by setting HoverBackground to Transparent -->
-                <!--<Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Red" />
-                </Trigger>--><!--
-
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Background" Value="Red" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>-->
-
-
+        
         <Style x:Key="LeftRoundCornerToggleButtonStyle" TargetType="ToggleButton">
             <Setter Property="Template">
                 <Setter.Value>
@@ -115,7 +99,13 @@
                         BorderBrush="Transparent"
                         CornerRadius="10 0 0 0"
                         >
-                    <ToggleButton x:Name="tbLineColor" BorderThickness="0" Checked="tbLineColor_Checked" Background="Transparent" Style="{StaticResource LeftRoundCornerToggleButtonStyle}"/>
+                    <ToggleButton x:Name="tbLineColor" 
+                                  BorderThickness="0" 
+                                  Checked="toggleStatusChanged" 
+                                  Unchecked="toggleStatusChanged"
+                                  
+                                  Background="Transparent" 
+                                  Style="{StaticResource LeftRoundCornerToggleButtonStyle}"/>
 
                 </Border >
 
@@ -125,7 +115,12 @@
                         BorderBrush="Transparent"
                         CornerRadius="10 0 0 0"
                         >
-                    <ToggleButton x:Name="tbShapeColor" BorderThickness="0" Checked="tbShapeColor_Checked" Background="Transparent" Style="{StaticResource RightRoundCornerToggleButtonStyle}" />
+                    <ToggleButton x:Name="tbShapeColor" 
+                                  BorderThickness="0" 
+                                  Checked="toggleStatusChanged" 
+                                  Unchecked="toggleStatusChanged"
+                                  Background="Transparent" 
+                                  Style="{StaticResource RightRoundCornerToggleButtonStyle}" />
                 </Border >
 
                 <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">

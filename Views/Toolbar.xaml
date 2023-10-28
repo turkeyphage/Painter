@@ -191,12 +191,12 @@
                        IsOpen="{Binding IsChecked, ElementName=tbStrokeSize, Mode=TwoWay}"
                        VerticalAlignment="Bottom"
                        PlacementTarget="{Binding ElementName=tbStrokeSize}"
-                       Placement="Right">
-                    <Border Width="200" Height="200" Background="White" BorderThickness="1">
-                        <StackPanel Background="LightGray"/>
+                       Placement="Right"
+                       AllowsTransparency="True">
+                    <Border Width="200" Height="200" Background="Transparent" BorderThickness="0" Padding="5 0 0 0">
+                        <localViews:StrokeSelector x:Name="StrokeSelector"></localViews:StrokeSelector>
                     </Border>
                 </Popup>
-
 
 
 

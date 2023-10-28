@@ -1,0 +1,184 @@
+﻿<UserControl x:Class="Painter.Views.StrokeSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Painter.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style x:Key="LeftRoundCornerStrokeTButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="border" 
+                                Background="Transparent" 
+                                BorderBrush="#80B7EF" 
+                                BorderThickness="0" 
+                                CornerRadius="10 0 0 0">
+
+                            <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="/Icons/line.png" Width="32" Height="32" Margin="0 0 10 0"></Image>
+                                <TextBlock Width="20" VerticalAlignment="Center" 
+                                           Text="{Binding dwModel.DrawingAttributesInkCanvas.Height , Mode=OneWay}"/> 
+                            </StackPanel>
+
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#B2D8FE" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="1" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="Transparent" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="0 0 0 1" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RightRoundCornerStrokeTButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="border" 
+                                Background="Transparent" 
+                                BorderBrush="#80B7EF" 
+                                BorderThickness="0" 
+                                CornerRadius="0 10 0 0">
+
+                            <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="/Icons/border.png" Width="32" Height="32" Margin="0 0 10 0"></Image>
+                                <TextBlock Width="20" 
+                                           VerticalAlignment="Center" 
+                                           Text="{Binding dwModel.ShapeStrokeThickness, Mode=OneWay}"/>
+                            </StackPanel>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#B2D8FE" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="1" />
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="Transparent" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="0 0 0 1" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Border Background="#EDF4FC" BorderThickness="1" CornerRadius="10">
+
+            <Grid >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" 
+                    Grid.Column="0"
+                    BorderThickness="0"
+                    BorderBrush="Transparent"
+                    CornerRadius="10 0 0 0"
+                    >
+                    <ToggleButton x:Name="tbStrokeSize" 
+                                  BorderThickness="0" 
+                                  Background="Transparent" 
+                                  Style="{StaticResource LeftRoundCornerStrokeTButtonStyle}"
+                                  Checked="toggleStatusChanged"
+                                  Unchecked="toggleStatusChanged"
+                                  IsChecked="{Binding skModel.IsOnStrokeSize, Mode=TwoWay}"/>
+
+                </Border >
+
+                <Border Grid.Row="0" 
+                    Grid.Column="1"
+                    BorderThickness="0"
+                    BorderBrush="Transparent"
+                    CornerRadius="10 0 0 0"
+                    >
+                    <ToggleButton x:Name="tbShapeBorderSize" 
+                                  BorderThickness="0" 
+                                  Background="Transparent" 
+                                  Style="{StaticResource RightRoundCornerStrokeTButtonStyle}"
+                                  Checked="toggleStatusChanged"
+                                  Unchecked="toggleStatusChanged"
+                                  IsChecked="{Binding skModel.IsOnShapeBorderSize, Mode=TwoWay}"/>
+                </Border >
+
+                <DockPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
+                    <Slider x:Name="ValueSlider" 
+                            Maximum="{Binding skModel.SliderMaxValue, Mode=OneWay}" 
+                            Minimum="{Binding skModel.SliderMinValue, Mode=OneWay}" 
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            Margin="20 10" 
+                            DockPanel.Dock="Top" 
+                            ValueChanged="ValueSlider_ValueChanged"/>
+
+                    <Grid Background="Transparent" DockPanel.Dock="Bottom" >
+
+
+                        <Canvas>
+                            <Path Stroke="{Binding dwModel.StrokeColor, Mode=OneWay}" StrokeThickness="{Binding dwModel.DrawingAttributesInkCanvas.Height , Mode=OneWay}" Visibility="{Binding skModel.StrokeCanvasVisibility, Mode=OneWay}">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathGeometry.Figures>
+                                            <PathFigureCollection>
+                                                
+                                                <PathFigure StartPoint="20,40">
+                                                    
+                                                    <BezierSegment x:Name="bezierSegment" Point1="80,30" Point2="100,140" Point3="170,40"/>
+                                                    
+                                                </PathFigure>
+                                            </PathFigureCollection>
+                                        </PathGeometry.Figures>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+
+                            <Rectangle 
+                                Visibility="{Binding skModel.ShapeBorderSizeCanvasVisibility, Mode=OneWay}"
+                                Canvas.Left="60" 
+                                Canvas.Top="20" 
+                                Width="80" 
+                                Height="80"
+                                Stroke="{Binding dwModel.StrokeColor, Mode=OneWay}" 
+                                StrokeThickness="{Binding dwModel.ShapeStrokeThickness, Mode=OneWay}"
+                                Fill="{Binding dwModel.ShapeFillColor, Mode=OneWay}" 
+                                />
+                        </Canvas>
+
+                        
+
+                    </Grid>
+
+                </DockPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
