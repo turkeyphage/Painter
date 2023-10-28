@@ -11,21 +11,8 @@ namespace Painter.ViewModels
     public class ToolbarViewModel : ViewModel
     {
 
-        private static ToolbarViewModel instance = null;
-        
-        public static ToolbarViewModel Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new ToolbarViewModel();
-                return instance;
-            }
-        }
-
         public ToolbarViewModel()
-        {
-            //Default 
+        { 
             
         }
     }

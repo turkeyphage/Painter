@@ -1,4 +1,5 @@
-﻿using Painter.ViewModels;
+﻿using Painter.Models;
+using Painter.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,10 +81,13 @@ namespace Painter.Views
                 dwModel.DrawingAttributesInkCanvas.Width = (sender as Slider).Value;
                 dwModel.DrawingAttributesInkCanvas.Height = (sender as Slider).Value;
 
+                ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeSelectedStrokesIfNecessary();
+
             }
             else { 
                 
                 dwModel.ShapeStrokeThickness = (sender as Slider).Value;
+                ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeSelectedShapeBorderSizeIfNecessary();
             }
         }
     }

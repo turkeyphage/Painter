@@ -10,14 +10,10 @@ namespace Painter.ViewModels
     public class StrokeSelectorViewModel : ViewModel
     {
 
-
         public StrokeSelectorViewModel()
         {
-            //Default 
-
             IsOnStrokeSize = true;
             setupToggleButtonStatus(true);
-
         }
 
 
@@ -32,17 +28,14 @@ namespace Painter.ViewModels
         private Visibility _strokeCanvasVisibility = Visibility.Collapsed;
         public Visibility StrokeCanvasVisibility
         {
-
             get => _strokeCanvasVisibility;
             set => Set(ref _strokeCanvasVisibility, value);
         }
 
 
-
         private Boolean _isOnShapeBorderSize = false;
         public Boolean IsOnShapeBorderSize
         {
-
             get => _isOnShapeBorderSize;
             set => Set(ref _isOnShapeBorderSize, value);
         }
@@ -60,7 +53,6 @@ namespace Painter.ViewModels
             get => _sliderMinValue;
             set => Set(ref _sliderMinValue, value);
         }
-
 
         private double _sliderMaxValue = 0;
         public double SliderMaxValue
@@ -94,7 +86,6 @@ namespace Painter.ViewModels
                 ShapeBorderSizeCanvasVisibility = Visibility.Visible;
                 SetSliderValueForShapeBorder();
             }
-
 
         }
 

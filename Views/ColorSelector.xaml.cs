@@ -50,9 +50,11 @@ namespace Painter.Views
             if (currTab == tbLineColor)
             {
                 dwModel.StrokeColor = ((sender as ListBox).SelectedValue) as string;
+                ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeSelectedStrokeColorIfNecessary();
             }
             else {
                 dwModel.ShapeFillColor = ((sender as ListBox).SelectedValue) as string;
+                ((DrawingWin)System.Windows.Application.Current.MainWindow).ChangeSelectedShapeFillColorIfNecessary();
             }
 
         }

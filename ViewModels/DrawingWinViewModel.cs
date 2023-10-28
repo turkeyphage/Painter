@@ -147,13 +147,6 @@ namespace Painter.ViewModels
         }
 
 
-        //private double _shapeBorderWidthColor = "White";
-        //public String ShapeFillColor
-        //{
-        //    get => _shapeFillColor;
-        //    set => Set(ref _shapeFillColor, value);
-        //}
-
 
         private double _shapeStrokeThickness = 0;
 

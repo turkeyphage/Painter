@@ -17,10 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
-using System.Xaml;
 using Newtonsoft.Json.Linq;
-using System.Windows.Markup;
 using Painter.ViewModels;
+
 
 namespace Painter
 {
@@ -283,6 +282,50 @@ namespace Painter
             
         }
 
+
+        public void ChangeSelectedStrokesIfNecessary()
+        {
+            foreach (var strokeItem in inkc.GetSelectedStrokes()) { 
+                strokeItem.DrawingAttributes.Width = model.DrawingAttributesInkCanvas.Width;
+                strokeItem.DrawingAttributes.Height = model.DrawingAttributesInkCanvas.Height;
+            }
+        }
+
+        
+
+        public void ChangeSelectedShapeFillColorIfNecessary()
+        {
+            foreach (var shapeItem in inkc.GetSelectedElements())
+            {
+                ((Shape)shapeItem).Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(model.ShapeFillColor)); 
+            }
+        }
+
+
+        public void ChangeSelectedStrokeColorIfNecessary()
+        {
+            foreach (var strokeItem in inkc.GetSelectedStrokes())
+            {
+                strokeItem.DrawingAttributes.Color = model.DrawingAttributesInkCanvas.Color;
+            }
+
+            foreach (var shapeItem in inkc.GetSelectedElements())
+            {
+                ((Shape)shapeItem).Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(model.StrokeColor));
+            }
+        }
+
+
+
+        public void ChangeSelectedShapeBorderSizeIfNecessary()
+        {
+            foreach (var shapeItem in inkc.GetSelectedElements())
+            {
+                ((Shape)shapeItem).StrokeThickness = model.ShapeStrokeThickness;
+            }
+        }
+
+
         private void inkc_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -472,20 +515,7 @@ namespace Painter
 
         private void inkc_SelectionChanged(object sender, EventArgs e)
         {
-            if (inkc.GetSelectedStrokes().Count > 0 || inkc.GetSelectedElements().Count > 0)
-            {
-                // Object(s) are selected
-                // You can perform actions here when objects are selected
-                Console.WriteLine(inkc.GetSelectedStrokes());
-                Console.WriteLine(inkc.GetSelectedElements());
-                 
-
-            }
-            else
-            {
-                // No objects are selected
-                // Perform actions when there are no selected objects
-            }
+           
         }
 
         private void inkc_SelectionResized(object sender, EventArgs e)
@@ -498,5 +528,7 @@ namespace Painter
         {
             this.DragMove();
         }
+
+
     }
 }

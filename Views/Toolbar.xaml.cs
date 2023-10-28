@@ -29,7 +29,7 @@ namespace Painter
 
 
         DrawingWinViewModel dwModel = DrawingWinViewModel.Instance;
-        ToolbarViewModel toolModel = ToolbarViewModel.Instance; 
+        ToolbarViewModel toolModel = new ToolbarViewModel(); 
 
         public Toolbar()
         {
