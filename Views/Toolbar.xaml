@@ -6,9 +6,7 @@
              xmlns:local="clr-namespace:Painter"
              xmlns:localViews="clr-namespace:Painter.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="70"
-             
-             >
+             d:DesignHeight="800" d:DesignWidth="70">
 
     <ToolBarTray Orientation="Vertical" >
 
@@ -16,13 +14,14 @@
             <Button ToolTip="Open" Width="44" Height="44" Click="NewFile_Click">
                 <Image Source="/Icons/create.png" />
             </Button>
-            <Button ToolTip="Open" Width="44" Height="44" Click="OpenFile_Click">
-                <Image Source="/Icons/open.png" />
-            </Button>
+
             <Button ToolTip="Save" Width="44" Height="44" Click="SaveFile_Click">
                 <Image Source="/Icons/save.png" />
             </Button>
-
+            <Separator/>
+            <Button ToolTip="Open" Width="44" Height="44" Click="OpenFile_Click">
+                <Image Source="/Icons/open.png" />
+            </Button>
             <Separator/>
         </ToolBar>
 
@@ -57,7 +56,7 @@
 
 
             <RadioButton x:Name="Shape_Ellipse" 
-                         ToolTip="Ellipse" 
+                         ToolTip="Draw Ellipse" 
                          Width="44" 
                          Height="44"
                          Checked="rbShape_Checked"
@@ -65,7 +64,7 @@
                 <Image Source="/Icons/circle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Rectangle" 
-                         ToolTip="Rectangle" 
+                         ToolTip="Draw Rectangle" 
                          Width="44" 
                          Height="44"
                          Checked="rbShape_Checked"
@@ -73,7 +72,7 @@
                 <Image Source="/Icons/rectangle.png" />
             </RadioButton>
             <RadioButton x:Name="Shape_Triangle" 
-                         ToolTip="Triangle" 
+                         ToolTip="Draw Triangle" 
                          Width="44" 
                          Height="44"
                          Checked="rbShape_Checked"
@@ -144,7 +143,7 @@
 
 
 
-            <ToggleButton x:Name="tbStrokeSize" ToolTip="Stroke Size" 
+            <ToggleButton x:Name="tbStrokeSize" ToolTip="Choose Stroke Size" 
                     Width="44" 
                     Height="44">
 

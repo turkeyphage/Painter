@@ -5,34 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Painter"
         mc:Ignorable="d"
-        xmlns:vm="clr-namespace:Painter.ViewModels"
+        xmlns:vm="clr-namespace:Painter.ViewModels" 
+        xmlns:localViews="clr-namespace:Painter.Views"
         Title="Painter" Height="800" Width="1000"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent">
 
-    <DockPanel >
-        <local:Toolbar x:Name="toolbar"
-                       DockPanel.Dock="Left"/>
+    <Window.Resources>
+       
+    </Window.Resources>
 
-        <Border BorderBrush="LightGray" BorderThickness="3" Margin="10">
-            <ScrollViewer  x:Name="inkcScroll" 
-                       DockPanel.Dock="Right"  
-                       Margin="0,0,0,0" 
-                       ScrollViewer.VerticalScrollBarVisibility="Auto"
-                       ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                <InkCanvas x:Name="inkc" Margin="0,0,0,0" 
-                           MouseDown="inkc_MouseDown" 
-                           MouseMove="inkc_MouseMove"
-                           MouseUp="inkc_MouseUp"
-                           SelectionChanged="inkc_SelectionChanged"
-                           SelectionResized="inkc_SelectionResized"
-                           EditingMode="{Binding InkCanvasMode, Mode=TwoWay}"
-                           DefaultDrawingAttributes="{Binding DrawingAttributesInkCanvas, Mode=TwoWay}">
+    <DockPanel Background="Transparent">
 
-                </InkCanvas>
-            </ScrollViewer>
+        <Border DockPanel.Dock="Top" Height="44" Background="{StaticResource TitleBar.BackgroundColor}" CornerRadius="10 10 0 0" MouseDown="DrawWin_MouseLeftButtonDown">
+            <localViews:TitleBar MouseDoubleClick="TitleBar_MouseDoubleClick"></localViews:TitleBar>
         </Border>
 
+        <Border DockPanel.Dock="Bottom" Background="{StaticResource MainArea.BackgroundColor}" CornerRadius="0 0 10 10" MouseDown="DrawWin_MouseLeftButtonDown">
 
+            <DockPanel>
+                <local:Toolbar x:Name="toolbar" DockPanel.Dock="Left" Margin="10 10 0 10"/>
+
+                <Border BorderBrush="{StaticResource DrawArea.BorderColor}" BorderThickness="3" Margin="10" >
+                    <ScrollViewer x:Name="inkcScroll" 
+                                  DockPanel.Dock="Right"  
+                                  Margin="0,0,0,0" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <InkCanvas x:Name="inkc" Margin="0,0,0,0" 
+                                   MouseDown="inkc_MouseDown" 
+                                   MouseMove="inkc_MouseMove"
+                                   MouseUp="inkc_MouseUp"
+                                   SelectionChanged="inkc_SelectionChanged"
+                                   SelectionResized="inkc_SelectionResized"
+                                   EditingMode="{Binding InkCanvasMode, Mode=TwoWay}"
+                                   DefaultDrawingAttributes="{Binding DrawingAttributesInkCanvas, Mode=TwoWay}">
+
+                        </InkCanvas>
+                    </ScrollViewer>
+                </Border>
+
+            </DockPanel>
+        </Border>
     </DockPanel>
     
 </Window>

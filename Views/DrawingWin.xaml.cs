@@ -529,6 +529,11 @@ namespace Painter
             this.DragMove();
         }
 
-
+        private void TitleBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine("Titlebar Double Click");
+            //((App)Application.Current).minimizeApp();
+            this.WindowState = WindowState.Minimized;
+        }
     }
 }

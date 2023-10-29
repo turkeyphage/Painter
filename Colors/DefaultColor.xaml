@@ -2,29 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <!--Toolbar-->
-    <SolidColorBrush x:Key="Toolbar.BackgroundBrush" Color="#F6F8FA" />
-    <SolidColorBrush x:Key="Toolbar.ForegroundBrush" Color="{StaticResource DarkNight}" />
-    <SolidColorBrush x:Key="Toolbar.Item.BorderBrush" Color="LightGray" />
-    <SolidColorBrush x:Key="Toolbar.SelectedItem.BackgroundBrush" Color="#12A8F1" />
-    <SolidColorBrush x:Key="Toolbar.SelectedItem.ForegroundBrush" Color="White" />
-    <SolidColorBrush x:Key="Toolbar.DisabledItem.BackgroundBrush" Color="#F4F4F4" />
-    <SolidColorBrush x:Key="Toolbar.DisabledItem.ForegroundBrush" Color="#838383" />
+    <SolidColorBrush x:Key="MainArea.BackgroundColor" Color="#FFEEF5FD" />
+    <SolidColorBrush x:Key="DrawArea.BorderColor" Color="LightGray" />
 
-    <SolidColorBrush x:Key="Toolbar.DraggableItem.BackgroundBrush" Color="LightGray" />
-    <SolidColorBrush x:Key="Toolbar.DraggableItem.ForegroundBrush" Color="Gray" />
-    <SolidColorBrush x:Key="Toolbar.DraggableItem.BorderBrush" Color="LightGray" />
 
-    <SolidColorBrush x:Key="Toolbar.ColorItem.ColorBorderBrush" Color="#CBD2DA" />
+    <SolidColorBrush x:Key="PopUp.BorderColor" Color="#FF80B7EF"/>
+    <SolidColorBrush x:Key="PopUp.BackgroundColor" Color="#FFf2f4f5"/>
+    <SolidColorBrush x:Key="PopUp.SelectedContentBackgroundColor" Color="#FFB2D8FE"/>
 
-    <SolidColorBrush x:Key="Toolbar.EndSessionItem.BackgroundBrush" Color="#EF476F" />
-    <SolidColorBrush x:Key="Toolbar.EndSessionItem.ForegroundBrush" Color="White" />
-    <SolidColorBrush x:Key="Toolbar.EndSessionItem.HoverBackgroundBrush" Color="#EF476F" />
-    <SolidColorBrush x:Key="Toolbar.EndSessionItem.HoverForegroundBrush" Color="White" />
-    <SolidColorBrush x:Key="Toolbar.EndSessionItem.PressedBackgroundBrush" Color="#EF476F" />
-    <SolidColorBrush x:Key="Toolbar.EndSessionItem.PressedForegroundBrush" Color="White" />
+    <SolidColorBrush x:Key="TitleBar.FontColor" Color="White"/>
+    <SolidColorBrush x:Key="TitleBar.BackgroundColor" Color="#FF11344F" />
+    <SolidColorBrush x:Key="TitleBar.ButtonRangeColor" Color="Transparent"/>
+    <SolidColorBrush x:Key="TitleBar.ButtonNormalColor" Color="#4DFFFFFF"/>
+    <SolidColorBrush x:Key="TitleBar.ButtonHoverColor" Color="#99FFFFFF"/>
+    <SolidColorBrush x:Key="TitleBar.ButtonClickColor" Color="#FFFFFFFF"/>
     
-    
-    
-    
+
 </ResourceDictionary>

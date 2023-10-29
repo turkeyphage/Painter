@@ -14,7 +14,7 @@
                     <ControlTemplate TargetType="ToggleButton">
                         <Border x:Name="border" 
                                 Background="Transparent" 
-                                BorderBrush="#80B7EF" 
+                                BorderBrush="{StaticResource PopUp.BorderColor}" 
                                 BorderThickness="0" 
                                 CornerRadius="10 0 0 0">
 
@@ -29,8 +29,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#B2D8FE" />
-                                <Setter TargetName="border" Property="BorderThickness" Value="1" />
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource PopUp.SelectedContentBackgroundColor}" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="1 1 1 0" />
                             </Trigger>
 
                             <Trigger Property="IsChecked" Value="False">
@@ -49,7 +49,7 @@
                     <ControlTemplate TargetType="ToggleButton">
                         <Border x:Name="border" 
                                 Background="Transparent" 
-                                BorderBrush="#80B7EF" 
+                                BorderBrush="{StaticResource PopUp.BorderColor}" 
                                 BorderThickness="0" 
                                 CornerRadius="0 10 0 0">
 
@@ -64,8 +64,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#B2D8FE" />
-                                <Setter TargetName="border" Property="BorderThickness" Value="1" />
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource PopUp.SelectedContentBackgroundColor}" />
+                                <Setter TargetName="border" Property="BorderThickness" Value="1 1 1 0" />
                             </Trigger>
 
                             <Trigger Property="IsChecked" Value="False">
@@ -84,7 +84,7 @@
 
 
     <Grid>
-        <Border Background="#EDF4FC" BorderThickness="1" CornerRadius="10">
+        <Border Background="{StaticResource PopUp.BackgroundColor}" BorderThickness="1" CornerRadius="10">
 
             <Grid >
 
@@ -129,8 +129,9 @@
                                   IsChecked="{Binding skModel.IsOnShapeBorderSize, Mode=TwoWay}"/>
                 </Border >
 
-                <DockPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
-                    <Slider x:Name="ValueSlider" 
+                <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="{StaticResource PopUp.BorderColor}" BorderThickness="1 0 1 1" CornerRadius="0 0 10 10">
+                    <DockPanel  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
+                        <Slider x:Name="ValueSlider" 
                             Maximum="{Binding skModel.SliderMaxValue, Mode=OneWay}" 
                             Minimum="{Binding skModel.SliderMinValue, Mode=OneWay}" 
                             TickFrequency="1"
@@ -139,34 +140,34 @@
                             DockPanel.Dock="Top" 
                             ValueChanged="ValueSlider_ValueChanged"/>
 
-                    <Grid Background="Transparent" DockPanel.Dock="Bottom" >
+                        <Grid Background="Transparent" DockPanel.Dock="Bottom" >
 
 
-                        <Canvas>
-                            <Path Stroke="{Binding dwModel.StrokeColor, Mode=OneWay}" 
+                            <Canvas>
+                                <Path Stroke="{Binding dwModel.StrokeColor, Mode=OneWay}" 
                                   StrokeThickness="{Binding dwModel.DrawingAttributesInkCanvas.Height , Mode=OneWay}" 
                                   Visibility="{Binding skModel.StrokeCanvasVisibility, Mode=OneWay}"
                                   StrokeLineJoin="Round"
                                   StrokeEndLineCap="Round"
                                   StrokeStartLineCap="Round"
                                   >
-                                <Path.Data>
-                                    <PathGeometry>
-                                        <PathGeometry.Figures>
-                                            <PathFigureCollection>
-                                                
-                                                <PathFigure StartPoint="20,40">
-                                                    
-                                                    <BezierSegment x:Name="bezierSegment" Point1="80,30" Point2="100,140" Point3="170,40"/>
-                                                    
-                                                </PathFigure>
-                                            </PathFigureCollection>
-                                        </PathGeometry.Figures>
-                                    </PathGeometry>
-                                </Path.Data>
-                            </Path>
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathGeometry.Figures>
+                                                <PathFigureCollection>
 
-                            <Rectangle 
+                                                    <PathFigure StartPoint="20,40">
+
+                                                        <BezierSegment x:Name="bezierSegment" Point1="80,30" Point2="100,140" Point3="170,40"/>
+
+                                                    </PathFigure>
+                                                </PathFigureCollection>
+                                            </PathGeometry.Figures>
+                                        </PathGeometry>
+                                    </Path.Data>
+                                </Path>
+
+                                <Rectangle 
                                 Visibility="{Binding skModel.ShapeBorderSizeCanvasVisibility, Mode=OneWay}"
                                 Canvas.Left="60" 
                                 Canvas.Top="20" 
@@ -176,13 +177,17 @@
                                 StrokeThickness="{Binding dwModel.ShapeStrokeThickness, Mode=OneWay}"
                                 Fill="{Binding dwModel.ShapeFillColor, Mode=OneWay}" 
                                 />
-                        </Canvas>
+                            </Canvas>
 
-                        
 
-                    </Grid>
 
-                </DockPanel>
+                        </Grid>
+
+                    </DockPanel>
+
+                </Border>
+                
+
 
             </Grid>
         </Border>
