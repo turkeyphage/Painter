@@ -36,15 +36,19 @@ namespace Painter
         
 
         DrawingWinViewModel model = DrawingWinViewModel.Instance;
+        InkPresenter inkPresenter;
 
         public DrawingWin()
         {
             InitializeComponent();
 
             inkc.Strokes.StrokesChanged += Strokes_StrokesChanged;
+            //inkc.EraserShape = new EllipseStylusShape(20, 20);
+            inkc.EraserShape = new RectangleStylusShape(20, 20);
             DataContext = model;
 
             model.DrawingAttributesInkCanvas.FitToCurve = true;
+            
         }
 
 
@@ -376,6 +380,16 @@ namespace Painter
                         break;
 
                 }
+            } 
+            else if(model.CurrentPaintingMode == EditModeType.Erase)
+            {
+                bool mouseIsDown = e.LeftButton == MouseButtonState.Pressed;
+                if (mouseIsDown)
+                {
+                    InkPresenter inkPresenter = GetVisualChild<InkPresenter>(inkc);
+                    HitTestResult hitTestResult = VisualTreeHelper.HitTest(inkPresenter, e.GetPosition(inkc));
+                    inkc.Children.Remove((UIElement)hitTestResult.VisualHit);
+                }
             }
         }
 
@@ -513,15 +527,9 @@ namespace Painter
         }
 
 
-        private void inkc_SelectionChanged(object sender, EventArgs e)
-        {
-           
-        }
-
         private void inkc_SelectionResized(object sender, EventArgs e)
         {
             Console.WriteLine("Resize");
-
         }
 
         private void DrawWin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -531,9 +539,27 @@ namespace Painter
 
         private void TitleBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine("Titlebar Double Click");
-            //((App)Application.Current).minimizeApp();
             this.WindowState = WindowState.Minimized;
         }
+
+
+        public T GetVisualChild<T>(Visual parent) where T : Visual
+        {
+            T child = default(T);
+            int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < numVisuals; i++)
+            {
+                Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
+                child = v as T;
+                if (child == null)
+                {
+                    child = GetVisualChild<T>(v);
+                }
+                if (child != null)
+                    break;
+            }
+            return child;
+        }
+
     }
 }

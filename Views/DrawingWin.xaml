@@ -34,11 +34,11 @@
                                   Margin="0,0,0,0" 
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                        <InkCanvas x:Name="inkc" Margin="0,0,0,0" 
-                                   MouseDown="inkc_MouseDown" 
+                        <InkCanvas x:Name="inkc" 
+                                   Margin="0,0,0,0" 
+                                   MouseDown="inkc_MouseDown"
                                    MouseMove="inkc_MouseMove"
                                    MouseUp="inkc_MouseUp"
-                                   SelectionChanged="inkc_SelectionChanged"
                                    SelectionResized="inkc_SelectionResized"
                                    EditingMode="{Binding InkCanvasMode, Mode=TwoWay}"
                                    DefaultDrawingAttributes="{Binding DrawingAttributesInkCanvas, Mode=TwoWay}">
