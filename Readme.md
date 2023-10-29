@@ -22,4 +22,4 @@
 ![PainterScreenshoot](painter_demo.png)
 ## Authors
 Roger Lo
-[Mail Me](turkeyworld64@gmail.com)
+[turkeyworld64@gmail.com](mailto:turkeyworld64@gmail.com?subject=Project:Painter)
