@@ -40,6 +40,7 @@
                                    MouseMove="inkc_MouseMove"
                                    MouseUp="inkc_MouseUp"
                                    SelectionResized="inkc_SelectionResized"
+                                   SelectionResizing="inkc_SelectionResizing"
                                    EditingMode="{Binding InkCanvasMode, Mode=TwoWay}"
                                    DefaultDrawingAttributes="{Binding DrawingAttributesInkCanvas, Mode=TwoWay}">
 

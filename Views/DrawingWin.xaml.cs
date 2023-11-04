@@ -241,7 +241,10 @@ namespace Painter
                                 };
 
 
-                                triangle.RenderTransform = new TranslateTransform(shape.StartPoint.X, shape.StartPoint.Y);
+                                // triangle.RenderTransform = new TranslateTransform(shape.StartPoint.X, shape.StartPoint.Y);
+                                
+                                triangle.SetValue(InkCanvas.LeftProperty, shape.StartPoint.X);
+                                triangle.SetValue(InkCanvas.TopProperty, shape.StartPoint.Y);
                                 triangle.Points = shape.Points;
 
                                 // Add the ellipse to the InkCanvas
@@ -506,9 +509,11 @@ namespace Painter
             // Update the shape's size
             if (currentShape is Polygon triangle)
             {
-                triangle.RenderTransform = new TranslateTransform(iniP.X, iniP.Y);
+                // triangle.RenderTransform = new TranslateTransform(iniP.X, iniP.Y);
                 triangle.Points = new PointCollection() { new Point(0, bgY-smY), new Point(bgX-smX, bgY-smY), new Point(0 +((bgX - smX) / 2), 0) };
-               
+                triangle.SetValue(InkCanvas.LeftProperty, smX);
+                triangle.SetValue(InkCanvas.TopProperty, smY);
+
             }
         }
 
@@ -527,10 +532,7 @@ namespace Painter
         }
 
 
-        private void inkc_SelectionResized(object sender, EventArgs e)
-        {
-            Console.WriteLine("Resize");
-        }
+
 
         private void DrawWin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -561,5 +563,35 @@ namespace Painter
             return child;
         }
 
+
+        private void inkc_SelectionResized(object sender, EventArgs e)
+        {
+            Console.WriteLine("Resize");
+        }
+
+        private void inkc_SelectionResizing(object sender, InkCanvasSelectionEditingEventArgs e)
+        {
+            foreach (var shapeItem in inkc.GetSelectedElements())
+            {
+                if (shapeItem is Polygon triangle)
+                {
+                    var widthDiff = e.NewRectangle.Width-e.OldRectangle.Width;
+                    var heightDiff = e.NewRectangle.Height-e.OldRectangle.Height;
+   
+                    var triPoints = triangle.Points;
+
+                    var x2Value = triPoints[1].X;
+                    var y2Value = triPoints[0].Y;
+
+                    x2Value += widthDiff;
+                    y2Value += heightDiff;
+
+                    triangle.Points = new PointCollection() { new Point(0, y2Value), new Point(x2Value, y2Value), new Point(x2Value / 2, 0) };
+                    triangle.SetValue(InkCanvas.LeftProperty, e.OldRectangle.X);
+                    triangle.SetValue(InkCanvas.TopProperty, e.OldRectangle.Y);
+                }
+            }
+
+        }
     }
 }
