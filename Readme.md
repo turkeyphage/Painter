@@ -15,7 +15,7 @@
 - Erase stroke and shape.
 
 ### Help
-- ~Triangle-resizing feature has some offset problem, and not work properly at this moment.~ (Bug fixed. Thank @Bocin-Chen for sharing his advice with me.)
+- ~Triangle-resizing feature has some offset problem, and not work properly at this moment.~ (Bug fixed. Thank [`@Bocin-Chen`](https://github.com/Bocin-Chen) for sharing his advice with me.)
 
 ### Demo
 
