@@ -11,7 +11,7 @@
     <ToolBarTray Orientation="Vertical" >
 
         <ToolBar ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-            <Button ToolTip="Open" Width="44" Height="44" Click="NewFile_Click">
+            <Button ToolTip="Open" Width="44" Height="44" Command="ApplicationCommands.New">
                 <Image Source="/Icons/create.png" />
             </Button>
 

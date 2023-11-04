@@ -59,8 +59,7 @@ namespace Painter
         }
 
 
-        public void CreateNew() {
-            // ChangeMode(EditModeType.Draw);
+        private void CreateNew() {
             model.CurrentPaintingMode = EditModeType.Draw;
             inkc.Strokes.Clear();
             inkc.Children.Clear();
@@ -564,11 +563,6 @@ namespace Painter
         }
 
 
-        private void inkc_SelectionResized(object sender, EventArgs e)
-        {
-            Console.WriteLine("Resize");
-        }
-
         private void inkc_SelectionResizing(object sender, InkCanvasSelectionEditingEventArgs e)
         {
             foreach (var shapeItem in inkc.GetSelectedElements())
@@ -593,5 +587,52 @@ namespace Painter
             }
 
         }
+
+
+
+        private void NewDocument(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (CanCreateNewDocument())
+            {
+                CreateNew();
+            }
+            else {
+                return;
+            }
+        }
+
+
+        public bool CanCreateNewDocument()
+        {
+            if(inkc.Strokes.Count > 0 || inkc.Children.Count > 0)
+            {
+                
+                string message = "Document has not been saved yet. Do you want to recreate a new document?";
+
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+
+                string caption = "Create New";
+
+                MessageBoxResult result;
+
+                result = MessageBox.Show(this, message, caption, button, icon, MessageBoxResult.Yes);
+
+                if (result == MessageBoxResult.Yes || result == MessageBoxResult.OK)
+                {
+                    return true;
+                }
+                else {
+
+                    return false;
+                }
+
+            } else
+            {
+                return true;
+            }   
+        }
+
+
     }
 }

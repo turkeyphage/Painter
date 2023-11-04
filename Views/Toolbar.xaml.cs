@@ -47,7 +47,7 @@ namespace Painter
             };
         }
 
-        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e) 
         {
             // remove toolbar overflow
             ToolBar toolBar = sender as ToolBar;
@@ -71,13 +71,6 @@ namespace Painter
             sfd.ShowDialog();
             ((DrawingWin)System.Windows.Application.Current.MainWindow).Save(sfd.FileName);
         }
-
-
-        private void NewFile_Click(object sender, RoutedEventArgs e)
-        {
-            ((DrawingWin)System.Windows.Application.Current.MainWindow).CreateNew();
-        }
-
 
 
         private void OpenFile_Click(object sender, RoutedEventArgs e) 

@@ -17,6 +17,12 @@
        
     </Window.Resources>
 
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New"
+                        Executed="NewDocument"/>
+    </Window.CommandBindings>
+
     <DockPanel Background="Transparent">
 
         <Border DockPanel.Dock="Top" Height="44" Background="{StaticResource TitleBar.BackgroundColor}" CornerRadius="10 10 0 0" MouseDown="DrawWin_MouseLeftButtonDown">
@@ -39,7 +45,6 @@
                                    MouseDown="inkc_MouseDown"
                                    MouseMove="inkc_MouseMove"
                                    MouseUp="inkc_MouseUp"
-                                   SelectionResized="inkc_SelectionResized"
                                    SelectionResizing="inkc_SelectionResizing"
                                    EditingMode="{Binding InkCanvasMode, Mode=TwoWay}"
                                    DefaultDrawingAttributes="{Binding DrawingAttributesInkCanvas, Mode=TwoWay}">
