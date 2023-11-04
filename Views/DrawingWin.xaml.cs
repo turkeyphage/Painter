@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Painter.ViewModels;
-
+using Microsoft.Win32;
 
 namespace Painter
 {
@@ -38,11 +38,13 @@ namespace Painter
         DrawingWinViewModel model = DrawingWinViewModel.Instance;
         InkPresenter inkPresenter;
 
+        private string _currentDocumentPath = "";
+
+
         public DrawingWin()
         {
             InitializeComponent();
 
-            inkc.Strokes.StrokesChanged += Strokes_StrokesChanged;
             //inkc.EraserShape = new EllipseStylusShape(20, 20);
             inkc.EraserShape = new RectangleStylusShape(20, 20);
             DataContext = model;
@@ -52,28 +54,91 @@ namespace Painter
         }
 
 
-
-        private void Strokes_StrokesChanged(object sender, System.Windows.Ink.StrokeCollectionChangedEventArgs e)
+        private void DoNewDocument(object sender, ExecutedRoutedEventArgs e)
         {
-
+            if (CanCreateNewDocument())
+            {
+                CreateNew();
+            }
+            else
+            {
+                return;
+            }
         }
 
-
-        private void CreateNew() {
+        private void CreateNew()
+        {
             model.CurrentPaintingMode = EditModeType.Draw;
             inkc.Strokes.Clear();
             inkc.Children.Clear();
+            _currentDocumentPath = "";
         }
 
-        public void Save(string Filename)
+        private bool CanCreateNewDocument()
         {
-           
-            if(Filename == "")
+            if (inkc.Strokes.Count > 0 || inkc.Children.Count > 0)
+            {
+
+                string message = "Document has not been saved yet. Do you want to recreate a new document?";
+
+                MessageBoxButton button = MessageBoxButton.YesNo;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+
+                string caption = "Create New";
+
+                MessageBoxResult result;
+
+                result = MessageBox.Show(this, message, caption, button, icon, MessageBoxResult.Yes);
+
+                if (result == MessageBoxResult.Yes || result == MessageBoxResult.OK)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+
+        private void DoSave(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (_currentDocumentPath == "")
+            {
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Filter = "Painter files (*.paint)|*.paint";
+                sfd.ShowDialog();
+                Save(sfd.FileName);
+            }
+            else
+            {
+                Save(_currentDocumentPath);
+            }
+
+        }
+
+        private void Save(string FilePath)
+        {
+
+            if (FilePath == "" || FilePath == null)
             {
                 Console.WriteLine("Empty Filename");
                 return;
             }
 
+            _currentDocumentPath = FilePath;
+            SaveChangesToFile(FilePath);
+
+        }
+
+        private void SaveChangesToFile(string Filename)
+        {
             try
             {
                 List<ShapeObject> childrenObjects = new List<ShapeObject>();
@@ -147,7 +212,7 @@ namespace Painter
                 currentSaved.inkStrokeData = inkc.Strokes;
                 currentSaved.shapesData = childrenObjects;
 
-            
+
                 string inkcDataStr = JsonConvert.SerializeObject(currentSaved);
 
                 System.IO.File.WriteAllText(Filename, inkcDataStr);
@@ -157,14 +222,34 @@ namespace Painter
                 Console.WriteLine(e.ToString());
                 throw;
             }
-
         }
 
-        public void LoadFile(string Filename) {
+
+
+
+        private void DoOpenExistedDocument(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Painter files (*.paint)|*.paint";
+            ofd.ShowDialog();
+
+            LoadFile(ofd.FileName);
+        }
+
+
+        public void LoadFile(string FilePath) {
+
+            if (FilePath == "" || FilePath == null) {
+                Console.WriteLine("Empty Filename");
+                return;
+            }
+
+
             try
             {
+                _currentDocumentPath = FilePath;
                 
-                using (StreamReader file = File.OpenText(Filename))
+                using (StreamReader file = File.OpenText(FilePath))
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
                     CreateNew();
@@ -590,48 +675,17 @@ namespace Painter
 
 
 
-        private void NewDocument(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (CanCreateNewDocument())
-            {
-                CreateNew();
-            }
-            else {
-                return;
-            }
-        }
+        
 
 
-        public bool CanCreateNewDocument()
-        {
-            if(inkc.Strokes.Count > 0 || inkc.Children.Count > 0)
-            {
-                
-                string message = "Document has not been saved yet. Do you want to recreate a new document?";
 
-                MessageBoxButton button = MessageBoxButton.YesNo;
-                MessageBoxImage icon = MessageBoxImage.Warning;
 
-                string caption = "Create New";
 
-                MessageBoxResult result;
 
-                result = MessageBox.Show(this, message, caption, button, icon, MessageBoxResult.Yes);
 
-                if (result == MessageBoxResult.Yes || result == MessageBoxResult.OK)
-                {
-                    return true;
-                }
-                else {
 
-                    return false;
-                }
 
-            } else
-            {
-                return true;
-            }   
-        }
+        
 
 
     }

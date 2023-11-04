@@ -64,23 +64,6 @@ namespace Painter
         }
 
 
-        private void SaveFile_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Painter files (*.paint)|*.paint";
-            sfd.ShowDialog();
-            ((DrawingWin)System.Windows.Application.Current.MainWindow).Save(sfd.FileName);
-        }
-
-
-        private void OpenFile_Click(object sender, RoutedEventArgs e) 
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Painter files (*.paint)|*.paint";
-            ofd.ShowDialog();
-
-            ((DrawingWin)System.Windows.Application.Current.MainWindow).LoadFile(ofd.FileName); 
-        }
 
         private void rbMode_Checked(object sender, RoutedEventArgs e)
         {

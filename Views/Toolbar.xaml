@@ -15,11 +15,11 @@
                 <Image Source="/Icons/create.png" />
             </Button>
 
-            <Button ToolTip="Save" Width="44" Height="44" Click="SaveFile_Click">
+            <Button ToolTip="Save" Width="44" Height="44" Command="ApplicationCommands.Save">
                 <Image Source="/Icons/save.png" />
             </Button>
             <Separator/>
-            <Button ToolTip="Open" Width="44" Height="44" Click="OpenFile_Click">
+            <Button ToolTip="Open" Width="44" Height="44" Command="ApplicationCommands.Open">
                 <Image Source="/Icons/open.png" />
             </Button>
             <Separator/>

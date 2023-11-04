@@ -20,7 +20,11 @@
 
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New"
-                        Executed="NewDocument"/>
+                        Executed="DoNewDocument"/>
+        <CommandBinding Command="ApplicationCommands.Save"
+                        Executed="DoSave"/>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        Executed="DoOpenExistedDocument"/>
     </Window.CommandBindings>
 
     <DockPanel Background="Transparent">
