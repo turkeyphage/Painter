@@ -57,8 +57,9 @@ namespace Painter
         {
             double defWinWidth = Math.Ceiling(SystemParameters.WorkArea.Width / 100) * 100 - 200;
             double defWinHeight = Math.Ceiling(SystemParameters.WorkArea.Height / 100) * 100 - 200;
-            Width = defWinWidth;
-            Height = defWinHeight;
+            Width = defWinWidth <= 1000 ? 1000 : defWinWidth;
+            Height = defWinHeight <= 650 ? 650 : defWinHeight;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void DoNewDocument(object sender, ExecutedRoutedEventArgs e)
