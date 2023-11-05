@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:Painter.ViewModels" 
         xmlns:localViews="clr-namespace:Painter.Views"
-        Title="Painter" Height="800" Width="1000"
+        Title="Painter" 
+        d:DesignHeight="600" 
+        d:DesignWidth="1000"
         ResizeMode="NoResize"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -23,8 +25,11 @@
                         Executed="DoNewDocument"/>
         <CommandBinding Command="ApplicationCommands.Save"
                         Executed="DoSave"/>
+        <CommandBinding Command="ApplicationCommands.SaveAs"
+                        Executed="DoSaveAs"/>
         <CommandBinding Command="ApplicationCommands.Open"
                         Executed="DoOpenExistedDocument"/>
+        
     </Window.CommandBindings>
 
     <DockPanel Background="Transparent">

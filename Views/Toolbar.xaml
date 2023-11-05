@@ -18,6 +18,11 @@
             <Button ToolTip="Save" Width="44" Height="44" Command="ApplicationCommands.Save">
                 <Image Source="/Icons/save.png" />
             </Button>
+            
+            <Button ToolTip="Save" Width="44" Height="44" Command="ApplicationCommands.SaveAs">
+                <Image Source="/Icons/save_as.png" />
+            </Button>
+
             <Separator/>
             <Button ToolTip="Open" Width="44" Height="44" Command="ApplicationCommands.Open">
                 <Image Source="/Icons/open.png" />

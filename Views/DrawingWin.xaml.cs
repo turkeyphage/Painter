@@ -44,15 +44,22 @@ namespace Painter
         public DrawingWin()
         {
             InitializeComponent();
-
+            DefineWindowArea();
             //inkc.EraserShape = new EllipseStylusShape(20, 20);
             inkc.EraserShape = new RectangleStylusShape(20, 20);
             DataContext = model;
 
             model.DrawingAttributesInkCanvas.FitToCurve = true;
-            
+
         }
 
+        private void DefineWindowArea()
+        {
+            double defWinWidth = Math.Ceiling(SystemParameters.WorkArea.Width / 100) * 100 - 200;
+            double defWinHeight = Math.Ceiling(SystemParameters.WorkArea.Height / 100) * 100 - 200;
+            Width = defWinWidth;
+            Height = defWinHeight;
+        }
 
         private void DoNewDocument(object sender, ExecutedRoutedEventArgs e)
         {
@@ -132,7 +139,7 @@ namespace Painter
                 return;
             }
 
-            _currentDocumentPath = FilePath;
+            
             SaveChangesToFile(FilePath);
 
         }
@@ -141,6 +148,7 @@ namespace Painter
         {
             try
             {
+                _currentDocumentPath = Filename;
                 List<ShapeObject> childrenObjects = new List<ShapeObject>();
 
                 foreach (UIElement child in inkc.Children)
@@ -225,6 +233,14 @@ namespace Painter
         }
 
 
+        private void DoSaveAs(object sender, ExecutedRoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Painter files (*.paint)|*.paint";
+            sfd.ShowDialog();
+            Save(sfd.FileName);
+        }
+
 
 
         private void DoOpenExistedDocument(object sender, ExecutedRoutedEventArgs e)
@@ -237,7 +253,7 @@ namespace Painter
         }
 
 
-        public void LoadFile(string FilePath) {
+        private void LoadFile(string FilePath) {
 
             if (FilePath == "" || FilePath == null) {
                 Console.WriteLine("Empty Filename");
@@ -673,20 +689,6 @@ namespace Painter
 
         }
 
-
-
         
-
-
-
-
-
-
-
-
-
-        
-
-
     }
 }
