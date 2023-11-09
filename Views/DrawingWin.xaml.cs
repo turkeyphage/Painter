@@ -642,7 +642,14 @@ namespace Painter
 
         private void TitleBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else {
+                this.WindowState = WindowState.Maximized;
+            }
         }
 
 
